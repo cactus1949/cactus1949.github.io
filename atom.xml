@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>浅见寡识</title>
+  
+  <subtitle>how much can i do?</subtitle>
+  <link href="http://yoursite.com/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2021-06-05T09:53:24.329Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>CACTUS</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记迁移mongodb数据库</title>
+    <link href="http://yoursite.com/2021/06/05/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/"/>
+    <id>http://yoursite.com/2021/06/05/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/</id>
+    <published>2021-06-05T09:10:51.940Z</published>
+    <updated>2021-06-05T09:53:24.329Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="记迁移mongodb数据库"><a href="#记迁移mongodb数据库" class="headerlink" title="记迁移mongodb数据库"></a>记迁移mongodb数据库</h1><blockquote><p>在写CM的过程中，因为一些数据来自官方，且随着时间推移，官方数据库不再存储该数据，所以需要进行保存到自建的服务器上，在这个过程中，我练手的服务器无法代替正式上线的服务器，这里就需要到了迁移</p></blockquote><p>迁移分两步，备份与恢复</p><h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><p>首先在原来的服务器上进行对数据库的备份操作：</p><pre><code>mongodump -h dbhost -d dbname -o dbdirectory-h：MongoDB 所在服务器地址-d：需要备份的数据库实例-o：备份的数据存放位置</code></pre><p>这里我执行的是：<code>mongodump -h 127.0.0.1:27017 -d cocmanage-test -o /root/dump</code><br>大概意思是，将本服务器上的cocmanage-test数据库实例的数据备份到/root/dump下<br>到这里备份工作完成了</p><h2 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h2><p>将上一步中的dump文件传到新的服务器上，为了方便也可以上传到root文件夹下<br>执行</p><pre><code>mongorestore -h &lt;hostname&gt;&lt;:port&gt; -d dbname &lt;path&gt;--host &lt;:port&gt;, -h &lt;:port&gt;：MongoDB所在服务器地址--db , -d ：需要恢复的数据库实例--drop：恢复的时候，先删除当前数据，然后恢复备份的数据。&lt;path&gt;：mongorestore 最后的一个参数，设置备份数据所在位置，</code></pre><p>这里我执行的是<code>mongorestore -h xx.xx.xx.xx:27017 -d cocmanage-test /root/dump/ --drop</code><br>大概意思是，将/root/dump的数据 恢复到xx.xx.xx.xx:27017下mongodb中，数据库实例名称为cocmanage-test</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;记迁移mongodb数据库&quot;&gt;&lt;a href=&quot;#记迁移mongodb数据库&quot; class=&quot;headerlink&quot; title=&quot;记迁移mongodb数据库&quot;&gt;&lt;/a&gt;记迁移mongodb数据库&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;在写CM的过程中，因为一些</summary>
+      
+    
+    
+    
+    <category term="mongodb" scheme="http://yoursite.com/categories/mongodb/"/>
+    
+    <category term="后端" scheme="http://yoursite.com/categories/mongodb/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+    <category term="mongodb" scheme="http://yoursite.com/tags/mongodb/"/>
+    
+    <category term="后端" scheme="http://yoursite.com/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nodejs常用模块记录</title>
+    <link href="http://yoursite.com/2020/11/18/Nodejs%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E8%AE%B0%E5%BD%95/"/>
+    <id>http://yoursite.com/2020/11/18/Nodejs%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-11-18T10:54:07.496Z</published>
+    <updated>2020-11-18T11:10:37.668Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Nodejs常用模块记录"><a href="#Nodejs常用模块记录" class="headerlink" title="Nodejs常用模块记录"></a>Nodejs常用模块记录</h1><h2 id="querystring"><a href="#querystring" class="headerlink" title="querystring"></a>querystring</h2><p>get请求中，会把请求参数链入url中，产生的叫query，querystring用来对query进行一些操作</p><h3 id="下载并引入"><a href="#下载并引入" class="headerlink" title="下载并引入"></a>下载并引入</h3><pre><code>//终端下下载npm i --save querystring//app.jsconst querystring = require(&#39;querystring&#39;);</code></pre><h3 id="querystring-escape"><a href="#querystring-escape" class="headerlink" title="querystring.escape()"></a>querystring.escape()</h3><p>格式：querystring.escape(string)</p><p>传入一个string作为参数，返回转义后的结果</p><pre><code>querystring.escape(&#39;id=1&#39;);//id%3D1</code></pre><h3 id="querystring-unescape"><a href="#querystring-unescape" class="headerlink" title="querystring.unescape()"></a>querystring.unescape()</h3><p>格式：querystring.unescape(string)</p><p>和<code>.escape()</code>正好相反，可以将上面示例中转义后的结果传入<code>.unescape()</code>中</p><pre><code>querystring.unescape(&#39;id%3D1&#39;);//id=1</code></pre><h3 id="querystring-parse"><a href="#querystring-parse" class="headerlink" title="querystring.parse()"></a>querystring.parse()</h3><p>格式：querystring.parse(string)</p><p>传入一个字符串，返回一个对象，反序列化</p><pre><code>querystring.parse(&#39;type=1&amp;status=0&#39;);//{ type: &#39;1&#39;, status: &#39;0&#39; }</code></pre><h3 id="querystring-stringify"><a href="#querystring-stringify" class="headerlink" title="querystring.stringify()"></a>querystring.stringify()</h3><p>格式：querystring.stringify(obj)</p><p>传入一个对象，将对象序列化</p><pre><code>let obj = {    type: 1,    status: 0}querystring.stringify(obj);//type=1&amp;status=0</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Nodejs常用模块记录&quot;&gt;&lt;a href=&quot;#Nodejs常用模块记录&quot; class=&quot;headerlink&quot; title=&quot;Nodejs常用模块记录&quot;&gt;&lt;/a&gt;Nodejs常用模块记录&lt;/h1&gt;&lt;h2 id=&quot;querystring&quot;&gt;&lt;a href=&quot;#qu</summary>
+      
+    
+    
+    
+    <category term="node" scheme="http://yoursite.com/categories/node/"/>
+    
+    <category term="模块" scheme="http://yoursite.com/categories/node/%E6%A8%A1%E5%9D%97/"/>
+    
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+    <category term="模块" scheme="http://yoursite.com/tags/%E6%A8%A1%E5%9D%97/"/>
+    
+    <category term="querystring" scheme="http://yoursite.com/tags/querystring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常见koa中间件</title>
+    <link href="http://yoursite.com/2020/11/16/%E5%B8%B8%E7%94%A8koa%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    <id>http://yoursite.com/2020/11/16/%E5%B8%B8%E7%94%A8koa%E4%B8%AD%E9%97%B4%E4%BB%B6/</id>
+    <published>2020-11-16T07:13:17.734Z</published>
+    <updated>2020-11-19T03:08:04.668Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="常见koa中间件"><a href="#常见koa中间件" class="headerlink" title="常见koa中间件"></a>常见koa中间件</h1><h2 id="koa-bodyparser"><a href="#koa-bodyparser" class="headerlink" title="koa-bodyparser"></a>koa-bodyparser</h2><p>将post请求的参数解析道ctx.request.body中</p><pre><code>const bodyparser = require(&#39;koa-parser&#39;);const koa = require(&#39;koa&#39;);const app = new koa();app.use(bodyparser());//加载中间件post请求处理中let postdata = ctx.request.body//可以获取到请求的参数</code></pre><h2 id="koa-compose"><a href="#koa-compose" class="headerlink" title="koa-compose"></a>koa-compose</h2><p>将多个中间件整合为一个中间件，方便重用或导出。</p><pre><code>const koa = require(&#39;koa&#39;);const app = new koa();const compose = require(&#39;koa-compose&#39;);async function middleware1(ctx,next){    console.log(&#39;one start&#39;);//1    await next();    console.log(&#39;one end&#39;);//6}async function middleware2(ctx,next){    console.log(&#39;two start&#39;);//2    console.log(&#39;three end&#39;);//3    await next();  }async function middleware3(ctx,next){    console.log(&#39;three start&#39;);//4    await next();    console.log(&#39;three end&#39;);//5}const all = compose([middleware1,middleware2,middleware3]);app.use(all)app.listen(3000)</code></pre><h2 id="koa-static"><a href="#koa-static" class="headerlink" title="koa-static"></a>koa-static</h2><p>文件服务器中间件，用来处理静态资源，依赖于另一款中间件koa-send。</p><p>当HTTP请求到达服务器后，koa-static对请求进行判断，对于符合要求的get请求和put请求，会调用koa-send加载并进行响应。</p><pre><code>const static = require(&#39;koa-static&#39;);app.use(static(__dirname+&#39;/static&#39;));</code></pre><p>/static存放静态资源</p><h2 id="koa-router"><a href="#koa-router" class="headerlink" title="koa-router"></a>koa-router</h2><p>自建一个路由组件</p><blockquote><p>完成功能：</p><p>只支持处理get请求</p></blockquote><pre><code class="javascript">//router.jsclass Router{    constructor(){        this._routes = [];    }    get(url,handler){    this._routes.push({      url: url,      method: &#39;GET&#39;,      handler    })  }  routes(){    return async (context,next)=&gt;{            const {method,url} = context; //使用es6中的解构赋值获取method以及url值      const matchroute = this._routes.find(r =&gt; r.method === method &amp;&amp; r.url === url)      if(matchroute &amp;&amp; matchroute.handler){        await matchroute.handler(context,next);      }else{        await next();      }    }  }}module.exports = new Router();//index.jsconst koa = require(&#39;koa&#39;);const router = require(&#39;./router&#39;);//加载自定义路由组件const app = new koa();app.use(router.routes());//使用路由组件返回的中间件router.get(&#39;/404&#39;,(ctx,next)=&gt;{    ctx.body = &#39;404 page not found&#39;;  ctx.status = 404;})app.listen(3000)</code></pre><p>在之前接触到的ctx.type以及ctx.method，虽然可以通过这两个属性进行路由的实现，但是实在是冗余不方便阅读</p><p>以下是登陆的一个小demo：</p><pre><code class="javascript">//引入模块const koa = require(&#39;koa&#39;);const app = new koa();const Router = require(&#39;koa-router&#39;);//引入koa-routerconst router = new Router()；//初始化routerconst bodyparser = require(&#39;koa-bodyparser&#39;);app.use(bodyparser());router.get(&#39;/login&#39;,(ctx,next)=&gt;{//定义路径为&#39;/login&#39;的路由规则    let html = `    &lt;form method=&quot;POST&quot; action=&quot;/login&quot;&gt;        &lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot; placeholder=&quot;username&quot;&gt;&lt;/input&gt;        &lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;password&quot;&gt;&lt;/input&gt;        &lt;button type=&quot;submit&quot;&gt;submit&lt;/button&gt;        &lt;/form&gt;    `;    ctx.response.body = html;    console.log(&#39;login index&#39;)})router.post(&#39;/login&#39;,(ctx,next)=&gt;{    let html = `    HELLO ${ctx.request.body.username}    `;    console.log(ctx.request.body);//这里想要获取到post请求的内容，需要借助koa-parser中间件    ctx.response.body = html;    console.log(&#39;login in&#39;)})app.use(router.routes()).use(router.allowedMethods());//通过use方法注册路由中间件app.listen(3000)</code></pre><h3 id="router自带的方法"><a href="#router自带的方法" class="headerlink" title="router自带的方法"></a>router自带的方法</h3><pre><code>const Router = require(&#39;koa-router&#39;);const router = new Router();</code></pre><h4 id="get"><a href="#get" class="headerlink" title=".get"></a>.get</h4><p>get请求</p><p>参数：</p><ol><li>路由</li><li>回调函数，匹配路由后执行<ol><li>参数ctx：上下文</li><li>next：调用则执行下一个中间件</li></ol></li></ol><pre><code>//router.get(url,handler);router.get(&#39;/&#39;,(ctx,next)=&gt;{    ctx.body = &#39;hello&#39;})</code></pre><h4 id="post"><a href="#post" class="headerlink" title=".post"></a>.post</h4><p>post请求</p><pre><code>//router.post(url,handler);router.post(&#39;/api/login&#39;,(ctx,next)=&gt;{    const user = ctx.request.body; //这里获取ctx.request.body需要bodyparser    ctx.body = {        user: user    }})</code></pre><h4 id="del"><a href="#del" class="headerlink" title=".del"></a>.del</h4><p>delete请求</p><pre><code>//router.del(url,handler);router.del(&#39;/posts/:pid&#39;,(ctx,next)=&gt;{    //delete pid === ctx.params.pid 的文章    ctx.body = &#39;delete successfully&#39;})</code></pre><h4 id="put"><a href="#put" class="headerlink" title=".put"></a>.put</h4><p>put请求</p><h4 id="all"><a href="#all" class="headerlink" title=".all"></a>.all</h4><p>当路由匹配一致并且在其他method中间件中有运行yield，那么就会执行method为all的中间件</p><pre><code>router.get(&#39;/&#39;,async (ctx,next)=&gt;{    //...    yield;})router.all(&#39;/&#39;,async (ctx,next)=&gt;{    //...})</code></pre><h3 id="其他用法"><a href="#其他用法" class="headerlink" title="其他用法"></a>其他用法</h3><h4 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h4><h4 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h4><p>访问<code>/forums/:fid/posts/:pid</code>获取某篇文章接口、<code>/forums/:fid/posts</code>获取某个板块列表</p><pre><code>const Router = require(&#39;koa-router&#39;);const forums = new Router();const posts = new Router();posts.get(&#39;/&#39;,(ctx,next)=&gt;{...})posts.get(&#39;/:pid&#39;,(ctx,next)=&gt;{...})forums.use(&#39;/forums/:fid/posts&#39;,posts.routes(),posts.allowedMedthods());app.use(forums.routes());</code></pre><h4 id="多个中间件"><a href="#多个中间件" class="headerlink" title="多个中间件"></a>多个中间件</h4><h4 id="路由前缀"><a href="#路由前缀" class="headerlink" title="路由前缀"></a>路由前缀</h4><h4 id="url参数"><a href="#url参数" class="headerlink" title="url参数"></a>url参数</h4><h2 id="koa-views"><a href="#koa-views" class="headerlink" title="koa-views"></a>koa-views</h2><p>用来加载HTML模版的中间件</p><pre><code>//koa-view-test.jsconst views = require(&#39;koa-views&#39;);const path = require(&#39;path&#39;);app.use(views(path.join(__dirname,&#39;./views&#39;),{    extension: &#39;ejs&#39;}))...router或app.use之中，加载模版let title = &#39;koa-view-test&#39;;ctx.render(&#39;index&#39;,{title});//传入模版的数据//这里不写后缀默认为ejs文件// /views/index.ejs&lt;%= title %&gt;</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;常见koa中间件&quot;&gt;&lt;a href=&quot;#常见koa中间件&quot; class=&quot;headerlink&quot; title=&quot;常见koa中间件&quot;&gt;&lt;/a&gt;常见koa中间件&lt;/h1&gt;&lt;h2 id=&quot;koa-bodyparser&quot;&gt;&lt;a href=&quot;#koa-bodyparser&quot;</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/categories/FE/node/"/>
+    
+    <category term="服务端框架" scheme="http://yoursite.com/categories/FE/node/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+    <category term="koa" scheme="http://yoursite.com/tags/koa/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>node的修行--第四天</title>
+    <link href="http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/"/>
+    <id>http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/</id>
+    <published>2020-11-16T00:34:58.573Z</published>
+    <updated>2020-11-16T07:13:45.113Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="node的修行–第四天"><a href="#node的修行–第四天" class="headerlink" title="node的修行–第四天"></a>node的修行–第四天</h1><blockquote><p>koa与Node.js开发实战</p></blockquote><h2 id="koa简介"><a href="#koa简介" class="headerlink" title="koa简介"></a><a href="https://koajs.com/" target="_blank" rel="noopener">koa</a>简介</h2><p>官网介绍，koa是下一代nodejs的web框架，在前面示例中，有使用到express，两者同宗，都是web框架，express主要采用es5的语法，一般使用回调函数处理异步操作，koa1和koa2分别支持es6中的generator函数+yield语句+promise以及es7中的async/await+promise处理异步操作</p><blockquote><p>需要补充知识：</p><p>es6 generator函数</p><p>es7 async/await</p><p><a href="https://www.cactus1102.cn/2020/10/15/%E8%AE%A4%E8%AF%86promise/" target="_blank" rel="noopener">promise</a></p></blockquote><h2 id="上下文-context"><a href="#上下文-context" class="headerlink" title="上下文(context)"></a>上下文(context)</h2><p>在koa每个use中，都有着与之对应的一个上下文context，他保存着两个对象：request对象，response对象</p><h3 id="上下文获取方式："><a href="#上下文获取方式：" class="headerlink" title="上下文获取方式："></a>上下文获取方式：</h3><ol><li><p>函数参数ctx</p><pre><code>const koa = require(&#39;koa&#39;);const app = new koa();app.use((ctx)=&gt;{    ctx.response.body = {        method: ctx.request.method,        url: ctx.request.url,    }})app.listen(3000,()=&gt;{    console.log(&#39;is listening port 3000&#39;)})</code></pre></li><li><p>this</p><blockquote><p>这里如果使用this获取Context，那么就不能使用箭头函数</p></blockquote><pre><code>const koa = require(&#39;koa&#39;);const app = new koa();app.use(function*(){    this.response.body = {        method: this.request.method,        url: this.request.url,    }})app.listen(3000,()=&gt;{    console.log(&#39;is listening port 3000&#39;)})</code></pre></li></ol><blockquote><p>以下示例中全部使用函数参数ctx方式获取context</p></blockquote><h3 id="ctx常用api"><a href="#ctx常用api" class="headerlink" title="ctx常用api"></a>ctx常用api</h3><h4 id="ctx-statue"><a href="#ctx-statue" class="headerlink" title="ctx.statue"></a>ctx.statue</h4><p>这是一个命名空间，在中间件之间传递消息，以及将信息传递到模版，无需直接向ctx添加属性避免命名冲突</p><h4 id="ctx-cookies"><a href="#ctx-cookies" class="headerlink" title="ctx.cookies"></a>ctx.cookies</h4><p>获取cookie</p><p><code>ctx.cookies.get(name,[options])</code></p><p>设置cookie</p><p><code>ctx.cookie.set(name,value,[options])</code></p><h4 id="ctx-throw"><a href="#ctx-throw" class="headerlink" title="ctx.throw"></a>ctx.throw</h4><p>抛出一个错误</p><pre><code>ctx.throw(500)</code></pre><h3 id="request对象api"><a href="#request对象api" class="headerlink" title="request对象api"></a>request对象api</h3><blockquote><p>请求对象</p><p>ctx.request//获取到的是koa的request对象</p><p>ctx.req//获取到的是node的request对象</p><p>koa的request对象是在nodejs的请求对象之上的抽象</p></blockquote><h4 id="ctx-request-method"><a href="#ctx-request-method" class="headerlink" title="ctx.request.method"></a>ctx.request.method</h4><p>请求方式</p><h4 id="ctx-request-url"><a href="#ctx-request-url" class="headerlink" title="ctx.request.url"></a>ctx.request.url</h4><p>请求地址</p><h4 id="ctx-request-path"><a href="#ctx-request-path" class="headerlink" title="ctx.request.path"></a>ctx.request.path</h4><p>请求路由</p><h4 id="ctx-request-accepts"><a href="#ctx-request-accepts" class="headerlink" title="ctx.request.accepts()"></a>ctx.request.accepts()</h4><p>客户端期望收到的数据类型</p><h3 id="response对象api"><a href="#response对象api" class="headerlink" title="response对象api"></a>response对象api</h3><blockquote><p>响应对象</p><p>ctx.response</p></blockquote><h4 id="ctx-response-body"><a href="#ctx-response-body" class="headerlink" title="ctx.response.body"></a>ctx.response.body</h4><p>响应体</p><p>一般会将需要传递的数据添加到响应体中</p><h4 id="ctx-response-type"><a href="#ctx-response-type" class="headerlink" title="ctx.response.type"></a>ctx.response.type</h4><p>显式设置Content-Type</p><h4 id="ctx-response-status"><a href="#ctx-response-status" class="headerlink" title="ctx.response.status"></a>ctx.response.status</h4><p>请求状态</p><h4 id="ctx-response-is-type"><a href="#ctx-response-is-type" class="headerlink" title="ctx.response.is(type..)"></a>ctx.response.is(type..)</h4><p>用于检查响应类型是否是所提供的类型之一</p><h4 id="ctx-response-redirect-url-alt"><a href="#ctx-response-redirect-url-alt" class="headerlink" title="ctx.response.redirect(url,[alt])"></a>ctx.response.redirect(url,[alt])</h4><p>重定向</p><p>将状态码为302的请求重定向到url上</p><blockquote><p>例如登陆后自动重定向到网站的首页</p></blockquote><h2 id="get-post请求处理"><a href="#get-post请求处理" class="headerlink" title="get/post请求处理"></a>get/post请求处理</h2><pre><code>const koa = require(&#39;koa&#39;);const app = new koa();app.use(ctx=&gt;{    ctx.response.body = {        url: ctx.request.url,        query: ctx.request.query,//get请求参数        querystring: ctx.request.querystring    }})app.listen(3000,()=&gt;{    console.log(&#39;is listening port 3000&#39;)})</code></pre><p>koa中没有封装获取post请求，可以通过nodejs原生提供的Request对象进行获取(ctx.req)</p><pre><code>const koa = require(&#39;koa&#39;);const app = new koa();app.use(ctx=&gt;{    let postdata = &#39;&#39;;    ctx.req.on(&#39;data&#39;,(data)=&gt;{        postdata += data;    })    ctx.req.on(&#39;end&#39;,()=&gt;{        console.log(postdata);    })})app.listen(3000,()=&gt;{    console.log(&#39;is listening port 3000&#39;)})</code></pre><p>显而易见，这种方法十分不方便，类似于express中的body-parser，koa也有对应的中间件<a href="https://www.npmjs.com/package/koa-bodyparser" target="_blank" rel="noopener">koa-bodyparser</a></p><p>koa-bodyparser会将post请求的参数解析到ctx.request.body上</p><pre><code>const bodyparser = require(&#39;koa-bodyparser&#39;);const koa = require(&#39;koa&#39;);const app = new koa();app.use(bodyparser());//加载中间件app.use(async ctx=&gt;{    ctx.response.body = {        data: ctx.request.body    }})app.listen(3000,()=&gt;{    console.log(&#39;is listening port 3000&#39;)})</code></pre><p>使用curl：<code>curl --data &quot;username=cactus&quot; http://127.0.0.1:3000/</code>可以得到响应：<code>{&quot;data&quot;:{&quot;username&quot;:&quot;cactus&quot;}}</code></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;node的修行–第四天&quot;&gt;&lt;a href=&quot;#node的修行–第四天&quot; class=&quot;headerlink&quot; title=&quot;node的修行–第四天&quot;&gt;&lt;/a&gt;node的修行–第四天&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;koa与Node.js开发实战&lt;/p&gt;
+&lt;</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/categories/FE/node/"/>
+    
+    <category term="服务端框架" scheme="http://yoursite.com/categories/FE/node/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+    <category term="koa" scheme="http://yoursite.com/tags/koa/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>node的修行--第三天</title>
+    <link href="http://yoursite.com/2020/11/12/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E4%B8%89%E5%A4%A9/"/>
+    <id>http://yoursite.com/2020/11/12/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E4%B8%89%E5%A4%A9/</id>
+    <published>2020-11-12T13:03:53.081Z</published>
+    <updated>2020-11-16T00:35:31.489Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="node的修行–第三天"><a href="#node的修行–第三天" class="headerlink" title="node的修行–第三天"></a>node的修行–第三天</h1><blockquote><p>示例出自<a href="https://www.manning.com/books/node-js-in-action-second-edition" target="_blank" rel="noopener"><em>nodejs实战(第二版)</em></a>第三章</p></blockquote><h2 id="get到的新模块"><a href="#get到的新模块" class="headerlink" title="get到的新模块"></a>get到的新模块</h2><blockquote><p>Tips:</p><p>1.安装模块：在项目目录下，打开terminal，输入npm install –save 模块名<br>    这样默认安装的是最新的模块版本<br>    –save：添加这个参数是默认配置到packet.json中的dependencies下，不用手动配置，后续使用npm install可以下载相关依赖</p><p>2.引入模块：const 模块名 = require(‘模块名’)</p><p>​    如果是自己编写的模块，需要写相对路径</p></blockquote><h3 id="express"><a href="#express" class="headerlink" title="express"></a>express</h3><blockquote><p>需要补充的过多，需要另外开单一章节去详细说明，这里只记录在示例中使用到</p></blockquote><p>这里是一个简易的示例</p><pre><code>//index.jsconst express = require(&#39;express&#39;);//引入express模块const app = new express();//通过express模块创建一个实例app.get(&#39;/&#39;,(req,res)=&gt;{//使用get方法访问请求127.0.0.1:3000/    res.send(&#39;Hello!&#39;)})app.listen(3000,()=&gt;{    console.log(&#39;is listening port 3000&#39;)})</code></pre><p>使用<code>node index.js</code>运行后，可以在命令行看到<code>is listening port 3000</code>，在浏览器中访问<code>127.0.0.1:3000/</code>可以看到Hello!</p><pre><code>//除了app.get()app.post(&#39;/articles&#39;,(req,res,next)=&gt;{//post请求 接口为/articles    res.send(req.body.id);//req.body需要body-parser模块才可以获取到})//method为delete的请求//作用：删除id为url中参数的文章app.delete(&#39;/articles/:id&#39;,(req,res,next)=&gt;{//这里:id表示传入的参数    res.send(req.params.id);})</code></pre><p>以上示例中，参数req，<a href="https://expressjs.com/zh-cn/api.html#res" target="_blank" rel="noopener">res</a>分别表示为request、response，有很多对应的方法</p><pre><code>//1. 发送http响应res.send(&#39;Hello&#39;);//2. 通过请求头的类型，返回对应的格式res.format({    html: ()=&gt;{        res.render(&#39;.ejs&#39;,参数...)    }    json: ()=&gt;{        res.send(&#39;HELLO&#39;)    }})//3. 设置响应头的信息res.setHeader(&#39;key&#39;,&#39;value&#39;)//4. 设置响应的HTTP状态res.status(code);//这里code为http状态码</code></pre><h3 id="body-parser"><a href="#body-parser" class="headerlink" title="body-parser"></a>body-parser</h3><blockquote><p>body-parser原来是express模块中的功能之一，因为功能过多，所以移出，产生了单独的模块</p><p>主要用于获取post请求中请求体的内容</p></blockquote><h4 id="top-level-middleware"><a href="#top-level-middleware" class="headerlink" title="top-level middleware"></a>top-level middleware<span id="top-level"></span></h4><pre><code>//引入模块const bodyParser = require(&#39;body-parser&#39;);//添加通用的json和urlencoded解析器作为顶级中间件，该中间件将解析所有传入请求的主体app.use(bodyParser.json());app.use(bodyParser.urlencoded({extended:true}));//使用app.post(&#39;/&#39;,(req,res)=&gt;{    res.send(req.body)})</code></pre><h4 id="the-most-recommended"><a href="#the-most-recommended" class="headerlink" title="the most recommended"></a>the most recommended</h4><pre><code>//引入模块const bodyParser = require(&#39;body-parser&#39;);//创建解析器var jsonParser = bodyParser.json();var urlencodedParser = bodyParser.urlencoded({extended: true});//使用app.post(&#39;/&#39;,jsonParser,(req,res)=&gt;{    res.send(req.body)})</code></pre><h4 id="type-for-parsers"><a href="#type-for-parsers" class="headerlink" title="type for parsers"></a>type for parsers</h4><pre><code>//引入模块const bodyParser = require(&#39;body-parser&#39;);const express = require(&#39;express&#39;);const app = express();//传入不同的type值，创建不同的中间件//将不同的自定义json类型解析为jsonapp.use(bodyParser.json({type: &#39;application/*+json&#39;}));//将一些自定义的内容解析为二进制buffer格式app.use(bodyParser.raw({ type: &#39;application/vnd.custom-type&#39; }))//将html解析为字符串app.use(bodyParser.text({type: &#39;text/html&#39;}));</code></pre><h3 id="sqlite3"><a href="#sqlite3" class="headerlink" title="sqlite3"></a><a href="https://www.sqlitetutorial.net/sqlite-nodejs/" target="_blank" rel="noopener">sqlite3</a></h3><blockquote><p>数据库相关</p></blockquote><h4 id="引入sqlite3"><a href="#引入sqlite3" class="headerlink" title="引入sqlite3"></a>引入sqlite3</h4><pre><code>const sqlite3 = require(&#39;sqlite3&#39;).verbose();</code></pre><blockquote><p>Versos 冗长的</p><p>这里是执行模式设置为冗长，以产生较长的stack traces（栈跟踪/堆栈回溯）。</p></blockquote><h4 id="数据库创建并连接"><a href="#数据库创建并连接" class="headerlink" title="数据库创建并连接"></a>数据库创建并连接</h4><p>数据库创建后默认会在本地根目录下创建一个文件</p><pre><code>const dbname = &#39;sqlite3.later&#39;;//设置数据库名const db = new sqlite3.Database(dbname);//创建数据库 //可以传入第二个参数，为回调函数，用于错误处理，示例如下const db = new sqlite3.Database(dbname,(err)=&gt;{    if(err){        return console.error(err.message);    }    console.log(&#39;Connected to the in-memory SQlite database.&#39;);})</code></pre><p><code>sqlite3.Database()</code>第一个参数除了可以写数据库名之外，还可以写相对路径，设置数据库名并设置了数据库存放的位置。</p><p>第二个参数是可选参数，有三种值，表示的是连接数据库的方式</p><ol><li><code>sqlite3.OPEN_READONLY</code>:打开数据库为只读</li><li><code>sqlite3.OPEN_READWRITE</code>:打开数据库进行读写</li><li><code>sqlite3.OPEN_CREATE</code>:打开数据库，如果数据库不存在，则创建一个新的数据库</li></ol><h4 id="关闭数据库连接"><a href="#关闭数据库连接" class="headerlink" title="关闭数据库连接"></a>关闭数据库连接</h4><pre><code>db.close();</code></pre><p>可以传入一个参数，为回调函数，回调函数有一个参数是err表示错误信息，如下</p><pre><code>db.close((err)=&gt;{    if(err){        return console.error(err.message);    }    console.log(&#39;Close the database connection.&#39;);})</code></pre><h4 id="数据库操作相关"><a href="#数据库操作相关" class="headerlink" title="数据库操作相关"></a>数据库操作相关</h4><ol><li><p>运行sql语句</p><pre><code>db.run(&#39;create table ...&#39;);//参数为sql语句</code></pre></li></ol><h3 id="node-readability"><a href="#node-readability" class="headerlink" title="node-readability"></a>node-readability</h3><blockquote><p>这个模块可以将任何web页面转换为clean view</p><p>在本示例中，使用它将web页面转换为clean view后，获取页面的title以及content值进行保存</p></blockquote><pre><code>//引入const read = require(&#39;node-readability&#39;);//使用app.post(&#39;/articles&#39;,(req,res,next)=&gt;{    //这里获取到post提交上来的url值，需要body-parser模块    const url = req.body.url;    read(url,(err,results)=&gt;{        if(err) res.status(500).send(&#39;Error downing articles&#39;);        //获取正常后的操作    })})</code></pre><h3 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h3><p>使用express.static中间件引入css文件</p><pre><code>// index.jsapp.use(bodyParser.json());app.use(bodyParser.urlencoded({extended: true}));app.use(&#39;/css&#39;, express.static(__dirname + &#39;/node_modules/bootstrap/dist/css&#39;));</code></pre><p><a href="#top-level">前两句代码</a>请点击跳转</p><h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><p>上述代码中<code>__dirname</code>为当前文件夹的目录，相同的还有</p><p><code>__filename</code>:当前文件的目录</p><h2 id="遇到的知识点补充"><a href="#遇到的知识点补充" class="headerlink" title="遇到的知识点补充"></a>遇到的知识点补充</h2><h3 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h3><p>curl是一种命令行工具，用来请求web服务器。</p><p>在这次示例中，使用到的有</p><pre><code>//get请求curl http://127.0.0.1:3000/articles//post请求，--data后面的是post的请求体curl --data &quot;username=cactus&quot; http://127.0.0.1:3000/articles//delete请求curl -X DELETE http://127.0.0.1:3000/articles/0</code></pre><blockquote><p>效果和postman很像，但是在返回结果的显示上，postman有更好的优化。</p><p>有关curl详细的参数说明可以点击<a href="https://www.ruanyifeng.com/blog/2019/09/curl-reference.html" target="_blank" rel="noopener">这里</a></p></blockquote><h3 id="ejs"><a href="#ejs" class="headerlink" title="ejs"></a>ejs</h3><p>ejs是一种嵌入式javascript模版引擎，用来编写模版。</p><p>常见的模版引擎有<a href="https://docs.oracle.com/javaee/5/tutorial/doc/bnagx.html" target="_blank" rel="noopener">jsp</a>、<a href="https://ejs.bootcss.com/" target="_blank" rel="noopener">ejs</a>、…</p><p>这个示例中使用到的是ejs，因为ejs使用到的语言是javascript，比较容易上手。</p><blockquote><p>原书中的示例代码清单3-6列表模版我在测试中无法正常使用，需要修改含有<code>include</code>的那一行代码，具体如下</p></blockquote><pre><code class="ejs">//3-6修改后的版本//articles.ejs&lt;%- include (&#39;./head&#39;)  %&gt;&lt;ul&gt;  &lt;% articles.forEach(article =&gt; { %&gt;    &lt;li&gt;          &lt;a href=&quot;/articles/&lt;%= article.id %&gt;&quot;&gt;          &lt;%= article.title %&gt;      &lt;/a&gt;      &lt;/li&gt;  &lt;% }) %&gt;&lt;/ul&gt;&lt;%- include (&#39;./foot&#39;) %&gt;</code></pre><h4 id="我看代码后的总结："><a href="#我看代码后的总结：" class="headerlink" title="我看代码后的总结："></a>我看代码后的总结：</h4><ol><li>&lt;%= xxx %&gt;:用来表示xxx为一个变量</li><li>&lt;%- include (‘相对路径’) %&gt;:用来引入一个外部文件填充此处</li><li>&lt;% 脚本语言 %&gt;:书写脚本语言，用于流程控制</li></ol><h4 id="官网给出的标签含义："><a href="#官网给出的标签含义：" class="headerlink" title="官网给出的标签含义："></a><a href="https://ejs.bootcss.com/#promo" target="_blank" rel="noopener">官网</a>给出的标签含义：</h4><ol><li><code>&lt;%</code> 脚本标签，用于流程控制，无输出</li><li><code>&lt;%_</code>/<code>_%&gt;</code>删除其前面/后面的空格符</li><li><code>&lt;%=</code>输出数据到模版（转义HTML标签）</li><li><code>&lt;%-</code>输出数据到模版（非转义）</li><li><code>&lt;%#</code>注释标签，不执行，不输出内容</li><li><code>&lt;%%</code>输出字符串‘&lt;%’</li><li><code>-%&gt;</code>删除紧随其后的换行符</li></ol><p>以上是ejs的标签含义</p><h4 id="ejs在express中的引用"><a href="#ejs在express中的引用" class="headerlink" title="ejs在express中的引用"></a>ejs在express中的引用</h4><p>express提供一种方式，可以支持多个格式，res.format，示例如下：</p><pre><code class="javascript">res.format({    html: ()=&gt;{        res.render(&#39;articles.ejs&#39;,{articles: articles});    },    json: ()=&gt;{        res.send(articles)    }})</code></pre><p>res.format根据请求发送相应格式的响应。</p><blockquote><p>这里我尝试了几种写法，依然无法响应到其他的格式</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;node的修行–第三天&quot;&gt;&lt;a href=&quot;#node的修行–第三天&quot; class=&quot;headerlink&quot; title=&quot;node的修行–第三天&quot;&gt;&lt;/a&gt;node的修行–第三天&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;示例出自&lt;a href=&quot;https://</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/categories/FE/node/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>node的修行--第二天</title>
+    <link href="http://yoursite.com/2020/11/06/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E4%BA%8C%E5%A4%A9/"/>
+    <id>http://yoursite.com/2020/11/06/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E4%BA%8C%E5%A4%A9/</id>
+    <published>2020-11-06T08:58:25.647Z</published>
+    <updated>2020-11-11T02:17:07.868Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="node的修行–第二天"><a href="#node的修行–第二天" class="headerlink" title="node的修行–第二天"></a>node的修行–第二天</h1><blockquote><p>nodejs实战（第二版）</p></blockquote><h2 id="exports和module-exports"><a href="#exports和module-exports" class="headerlink" title="exports和module.exports"></a>exports和module.exports</h2><p>在node中默认导出的是<code>module.exports</code>，也就是说在同一个文件下如果同时使用<code>exports</code>和<code>module.exports</code>，那么只有<code>module.exports</code>生效。</p><blockquote><p>换个角度解释就是，exports是module.exports的引用，</p></blockquote><h3 id="exports"><a href="#exports" class="headerlink" title="exports"></a>exports</h3><p>格式：exports.[alias] = [属性名或方法名或其本身]</p><p>只能通过<code>.</code>运算符，向exports对象上添加方法或属性，从而导出方法或属性值，无法导出其他类型的值。</p><p>示例：</p><pre><code class="javascript">// fun.jsconst str = &#39;this is str&#39;;function fun(){    console.log(&#39;this is fun&#39;);}exports.fun = fun;exports.str = str;//app.jsconst fun = require(&#39;./fun&#39;);console.log(fun.str);// this is strconsole.log(fun.fun());// this is fun</code></pre><blockquote><p>这里需要注意一点：绝对不能直接给exports赋值，那样返回时只会导出一个空的对象，这是因为默认返回的是module.exports，而直接给exports赋值则修改了exports的指向，此时module.exports还是一个空的对象。</p></blockquote><h3 id="module-exports"><a href="#module-exports" class="headerlink" title="module.exports"></a>module.exports</h3><p>可以直接赋值任何类型的值，也可以像exports一样，通过<code>.</code>运算符进行赋值，通常会选择到处一个有若干方法和属性的对象。</p><p>示例：</p><pre><code class="javascript">//fun.jsconst str = &#39;this is str&#39;;function fun(){  console.log(&#39;this is fun&#39;);}module.exports = {  fun: fun,  str: str}//test_fun.jsconst fun = require(&#39;./fun&#39;);fun.fun();//this is funconsole.log(fun.str);//this is str</code></pre><blockquote><p>注意：如果在同一个文件下，对<code>module.exports</code>重复赋值，则以最后一个为准。</p></blockquote><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><h3 id="require"><a href="#require" class="headerlink" title="require"></a>require</h3><p>在上面的示例中已经有所展示，如果返回的是一个对象，那么可以通过<code>.</code>操作符进行对对象属性的引用。</p><p>除此之外，还有一种引用方式：</p><pre><code class="javascript">//test_fun.jsconst {fun,str} = require(&#39;./fun&#39;);fun();//this is funconsole.log(str);//this is str</code></pre><p>这里使用的是ES6中的解构赋值，可以直接引用，不需要以对象属性的方式调用。</p><h2 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h2><blockquote><p>export 和 export default</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;node的修行–第二天&quot;&gt;&lt;a href=&quot;#node的修行–第二天&quot; class=&quot;headerlink&quot; title=&quot;node的修行–第二天&quot;&gt;&lt;/a&gt;node的修行–第二天&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;nodejs实战（第二版）&lt;/p&gt;
+&lt;/b</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/categories/FE/node/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>call、bind和apply浅析</title>
+    <link href="http://yoursite.com/2020/11/06/call%E3%80%81bind%E5%92%8Capply%E6%B5%85%E6%9E%90/"/>
+    <id>http://yoursite.com/2020/11/06/call%E3%80%81bind%E5%92%8Capply%E6%B5%85%E6%9E%90/</id>
+    <published>2020-11-06T01:56:12.890Z</published>
+    <updated>2020-11-11T03:25:57.404Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="call、bind和apply浅析"><a href="#call、bind和apply浅析" class="headerlink" title="call、bind和apply浅析"></a>call、bind和apply浅析</h1><blockquote><p>以下三个方法可以修改this</p></blockquote><h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>格式：call(this,arg1,arg2,…)</p><p>第一个参数指定this的指向，从第二个参数开始就是新添加的函数参数</p><h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>格式：bind(this,arg1,arg2,…)</p><p>生成一个新的函数，第一个参数作为新的函数的this指向，之后的参数作为函数参数传入新的函数中。</p><p>也是因为这个，所以调用bind后无法自动运行，必须手动运行才可以</p><h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>格式：apply(this,[arg1,arg2,arg3,…])</p><p>apply方法和call方法的参数很像，apply只有两个参数，第二个参数表示为一个参数列表，而在call方法中，是一个个的参数。</p><h2 id="特殊用法"><a href="#特殊用法" class="headerlink" title="特殊用法"></a>特殊用法</h2><h3 id="slice-call-arguments"><a href="#slice-call-arguments" class="headerlink" title="[].slice.call(arguments)"></a>[].slice.call(arguments)</h3><blockquote><p>可以将类数组转换为真正的数组</p><p>类数组：具有length属性的对象等</p></blockquote><h4 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h4><p>这里我们回顾下数组的方法<code>slice</code>：</p><p>slice方法用于浅复制原数组的片段，不会改变原数组，返回截取片段</p><p><code>.slice(start,end)</code>返回 [start,end)的值，注意这里不包括end值，如果不传入参数，则默认返回与原数组相同的数组。</p><pre><code class="javascript">var arr = [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;];console.log(arr.slice(0,2));//[&#39;1&#39;,&#39;2&#39;]console.log(arr.slice(1,2));//[&#39;2&#39;]console.log(arr);//[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;]</code></pre><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>通过数组prototype中的方法slice，可以将类数组中的值浅复制到一个真正的数组中，因为原类数组无法使用slice方法，所以通过call方法进行调用，返回结果数组。</p><pre><code class="javascript">var obj = {  length: 8};var arr = [].slice.call(obj);console.log(arr);//[&lt;8 empty items&gt;]console.log(typeof arr);//Arrayconsole.log(typeof obj);//Object</code></pre><p>此示例中将一个具有length属性的对象转换为了数组，可以使用数组下的所有方法。</p><hr><h4 id="常用案例"><a href="#常用案例" class="headerlink" title="常用案例"></a>常用案例</h4><h5 id="1-将传入函数的参数转换为数组"><a href="#1-将传入函数的参数转换为数组" class="headerlink" title="1.将传入函数的参数转换为数组"></a>1.将传入函数的参数转换为数组</h5><p>a. [].slice.call()</p><p>这里我们知道，函数默认有一个参数<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments" target="_blank" rel="noopener">arguments</a>用来保存传入的参数，但是他不是真正的数组，而是类数组，除了索引和length属性之外的其他方法都无法使用，这时就可以使用此方法进行转换，以下示例：</p><pre><code class="javascript">function test(a,b,c){  console.log(arguments[0]);//1  console.log(arguments.length);//4  //console.log(arguments.push(4));//Error: push is not a function  var arr = [].slice.call(arguments);  arr.push(5);  console.log(arr);//[1,2,3,4,5]}test(1,2,3,4)</code></pre><p>b. Array.apply()</p><pre><code class="javascript">function test(a,b,c){  var arr = Array.apply(null,arguments);  arr.push(5);  console.log(arr);//[1,2,3,4,5]}test(1,2,3,4)</code></pre><p>这里使用了Array的构造函数，通过apply方法，将类数组arguments作为apply方法的第二参数（参数数组）传入Array的构造函数，创建一个数组。</p><p>c. Array.from()</p><pre><code class="javascript">function test(){    var arr = Array.from(arguments);    arr.push(5);    console.log(arr);//[1,2,3,4,5]}test(1,2,3,4);</code></pre><p>d. […arguments]</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;call、bind和apply浅析&quot;&gt;&lt;a href=&quot;#call、bind和apply浅析&quot; class=&quot;headerlink&quot; title=&quot;call、bind和apply浅析&quot;&gt;&lt;/a&gt;call、bind和apply浅析&lt;/h1&gt;&lt;blockquote&gt;
+</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="Function" scheme="http://yoursite.com/categories/FE/Function/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="Function" scheme="http://yoursite.com/tags/Function/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记formidable模块的坑</title>
+    <link href="http://yoursite.com/2020/11/01/%E8%AE%B0formidable%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9D%91/"/>
+    <id>http://yoursite.com/2020/11/01/%E8%AE%B0formidable%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9D%91/</id>
+    <published>2020-11-01T11:57:37.241Z</published>
+    <updated>2020-11-06T02:00:47.833Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="记formidable模块的坑"><a href="#记formidable模块的坑" class="headerlink" title="记formidable模块的坑"></a>记formidable模块的坑</h1><p><a href="https://www.npmjs.com/package/formidable" target="_blank" rel="noopener">formidable</a>下载以及使用方式在<a href="www.npmjs.com">npmjs</a>中有着详细的展示，这里就不一一叙述了。</p><h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><blockquote><p>这里记录下使用formidable时，遇到的坑以及解决方式</p></blockquote><h3 id="enctype"><a href="#enctype" class="headerlink" title="enctype"></a>enctype</h3><p>form标签中有enctype属性，表示表单传输数据的格式，一般有以下三种属性值：</p><ol><li>mutipart/form-data：传输文件时设置（type=’file’）</li><li>text/plain：html5新加的属性值</li><li>application/x-www-form-urlencoded：默认设置的值</li></ol><h3 id="name"><a href="#name" class="headerlink" title="name"></a>name</h3><p>input标签上有个name属性，当我第一次见到它时，学长就一直强调name属性的重要性，我只是每次都写，但并没有明白其中的原因，当我这次使用formidable模块并上传一张图片时，出现了一个小bug：获取的fields和files值都是空对象，查错后发现是name属性没有设置的缘故。</p><blockquote><p>后端通过name属性获取到表单中发送的值</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;记formidable模块的坑&quot;&gt;&lt;a href=&quot;#记formidable模块的坑&quot; class=&quot;headerlink&quot; title=&quot;记formidable模块的坑&quot;&gt;&lt;/a&gt;记formidable模块的坑&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://w</summary>
+      
+    
+    
+    
+    <category term="node" scheme="http://yoursite.com/categories/node/"/>
+    
+    <category term="模块" scheme="http://yoursite.com/categories/node/%E6%A8%A1%E5%9D%97/"/>
+    
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+    <category term="模块" scheme="http://yoursite.com/tags/%E6%A8%A1%E5%9D%97/"/>
+    
+    <category term="formidable" scheme="http://yoursite.com/tags/formidable/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mongoDB--安装运行</title>
+    <link href="http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/"/>
+    <id>http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</id>
+    <published>2020-10-23T00:37:24.409Z</published>
+    <updated>2020-11-06T02:08:31.961Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="mongDB–安装运行"><a href="#mongDB–安装运行" class="headerlink" title="mongDB–安装运行"></a>mongDB–安装运行</h1><blockquote><p>安装过程有些“离奇”，记录下安装过程</p></blockquote><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol><li>在<a href="https://www.mongodb.com/try/download/community" target="_blank" rel="noopener">官网</a>下载tgz安装包，这里选择好版本以及本机的系统</li></ol><p>[<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://imgchr.com/i/BkgxL8" alt="BkgxL8.png](https://s1.ax1x.com/2020/10/23/BkgxL8.png)" title="">                </div>                <div class="image-caption">BkgxL8.png](https://s1.ax1x.com/2020/10/23/BkgxL8.png)</div>            </figure></p><ol start="2"><li>下载好后解压</li></ol><p>[<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://imgchr.com/i/Bk2FWn" alt="Bk2FWn.png](https://s1.ax1x.com/2020/10/23/Bk2FWn.png)" title="">                </div>                <div class="image-caption">Bk2FWn.png](https://s1.ax1x.com/2020/10/23/Bk2FWn.png)</div>            </figure></p><ol start="3"><li>在想要放置mongodb的地方创建一个mongodb的文件夹，将解压后的文件夹移入其中，并在新创建的mongodb文件夹下创建一个名为db的文件夹，如下图：</li></ol><p>[<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://imgchr.com/i/Bk2rlt" alt="Bk2rlt.png](https://s1.ax1x.com/2020/10/23/Bk2rlt.png)" title="">                </div>                <div class="image-caption">Bk2rlt.png](https://s1.ax1x.com/2020/10/23/Bk2rlt.png)</div>            </figure></p><p>前期工作已经准备好了，接下来就是配置环节：</p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol><li><p>打开命令行工具，cd到mongodb/mongodb…./bin下，使用pwd获取到bin所在的完整路径</p><p>[<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://imgchr.com/i/Bk2fYj" alt="Bk2fYj.png](https://s1.ax1x.com/2020/10/23/Bk2fYj.png)" title="">                </div>                <div class="image-caption">Bk2fYj.png](https://s1.ax1x.com/2020/10/23/Bk2fYj.png)</div>            </figure></p></li><li><p>将获取到的路径写入<code>~/.bash_profile</code></p><p>[<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://imgchr.com/i/Bk2WkQ" alt="Bk2WkQ.png](https://s1.ax1x.com/2020/10/23/Bk2WkQ.png)" title="">                </div>                <div class="image-caption">Bk2WkQ.png](https://s1.ax1x.com/2020/10/23/Bk2WkQ.png)</div>            </figure></p></li><li><p>写好后，在命令行中输入<code>source ~/.bash_profile</code>，使改动生效</p></li></ol><h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>cd到bin目录下，运行<code>./mongod --dbpath db文件夹路径</code>，如果看到有”Listening on”,”attr”:{“address”:”127.0.0.1”}还有端口27017则开启成功，在浏览器中输入<code>127.0.0.1:27017</code>可以看到</p><pre><code>It looks like you are trying to access MongoDB over HTTP on the native driver port.</code></pre><p>重新打开一个终端，刚刚的运行不要关闭，刚刚的运行不要关闭，刚刚的运行不要关闭，cd到bin目录下，运行<code>./mongo</code>，这里就可以开始操作数据库了</p><h2 id="自启动"><a href="#自启动" class="headerlink" title="自启动"></a>自启动</h2><p>上述过程中是手动启动，下面通过launchctl来进行自启动的设置</p><ol><li><p>在终端中输入命令：<code>sudo vim /Library/LaunchDaemons/org.mongo.mongod.plist</code>，创建一个文件，进行代码编写，他会在计算机启动时运行</p><p>在里面粘贴一下内容，需要修改三处路径</p><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;Label&lt;/key&gt;    &lt;string&gt;org.mongo.mongod&lt;/string&gt;    &lt;key&gt;RunAtLoad&lt;/key&gt;    &lt;true/&gt;    &lt;key&gt;ProgramArguments&lt;/key&gt;    &lt;array&gt;        &lt;string&gt;/usr/local/bin/mongod&lt;/string&gt;        &lt;string&gt;--dbpath&lt;/string&gt;        &lt;string&gt;/var/lib/mongodb/&lt;/string&gt;        &lt;string&gt;--logpath&lt;/string&gt;        &lt;string&gt;/var/log/mongodb.log&lt;/string&gt;    &lt;/array&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><blockquote><ol><li><code>&lt;string&gt;/usr/local/bin/mongod&lt;/string&gt;</code>这里时mongod的绝对路径</li><li><code>&lt;string&gt;--dbpath&lt;/string&gt;&lt;string&gt;/var/lib/mongodb/&lt;/string&gt;</code>这里是db路径，db是mongodb数据库存储的地方，默认是没有的，需要自己创建</li><li><code>&lt;string&gt;--logpath&lt;/string&gt;&lt;string&gt;/var/log/mongodb.log&lt;/string&gt;</code>同第二个，是log日志文件</li></ol></blockquote></li><li><p>运行一下命令：</p><pre><code>sudo chown root:wheel /Library/LaunchDaemons/org.mongo.mongod.plistsudo launchctl load /Library/LaunchDaemons/org.mongo.mongod.plistsudo launchctl start org.mongo.mongod</code></pre></li><li><p>　此时重启即可</p></li></ol><h1 id="Navicat"><a href="#Navicat" class="headerlink" title="Navicat"></a>Navicat</h1><p>上述过程中使用的都是terminal，用命令行对数据库进行操作，接下来安装navicat图形化管理数据库。</p><p>[<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://imgchr.com/i/BVR76A" alt="BVR76A.png](https://s1.ax1x.com/2020/10/24/BVR76A.png)" title="">                </div>                <div class="image-caption">BVR76A.png](https://s1.ax1x.com/2020/10/24/BVR76A.png)</div>            </figure></p><p>使用新建连接，直接连接相对应的数据库。</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol><li><a href="https://www.xiaoboy.com/topic/how-to-start-mongodb-automatically-when-starting-your-mac-os-x.html" target="_blank" rel="noopener">在MaxOS X中如何让MongoDB在开机时自动启动</a></li><li><a href="https://juejin.im/post/6844903958826188808" target="_blank" rel="noopener">mac下的mongoDB的安装和启动</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;mongDB–安装运行&quot;&gt;&lt;a href=&quot;#mongDB–安装运行&quot; class=&quot;headerlink&quot; title=&quot;mongDB–安装运行&quot;&gt;&lt;/a&gt;mongDB–安装运行&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;安装过程有些“离奇”，记录下安装过程&lt;/p</summary>
+      
+    
+    
+    
+    <category term="后端" scheme="http://yoursite.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="数据库" scheme="http://yoursite.com/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="后端" scheme="http://yoursite.com/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="mongDB" scheme="http://yoursite.com/tags/mongDB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>认识promise</title>
+    <link href="http://yoursite.com/2020/10/15/%E8%AE%A4%E8%AF%86promise/"/>
+    <id>http://yoursite.com/2020/10/15/%E8%AE%A4%E8%AF%86promise/</id>
+    <published>2020-10-15T07:30:15.792Z</published>
+    <updated>2020-11-06T02:03:21.582Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="认识Promise"><a href="#认识Promise" class="headerlink" title="认识Promise"></a>认识Promise</h1><blockquote><p>Promise将异步操作变为同步操作，避免回调函数的层层嵌套引起的callback hell</p></blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在一些需求中，很常见需要用到回调的地方，例如在充话费时，需要先通过电话号码查询到所处的地区，然后再根据地区去返回可以充值的话费额度，如果用callback+ajax(jquery)来写这个需求的话：</p><pre><code class="javascript">function success(response){    console.log(&#39;success:&#39;+response);}function fail(e){  console.log(&#39;error:&#39;+e);}function getAjax(method,url,data,success,fail){    $.ajax({    url: url,    method: method,    data: data,    dataType: &#39;json&#39;,    success: success,    fail: fail  })}var phoneNum = &#39;12345&#39;;getAjax(&#39;get&#39;,&#39;/getCity&#39;,phoneNum,function(city){  getAjax(&#39;get&#39;,&#39;/getMoney&#39;,city,success,fail);},fail);</code></pre><p>可以看出，虽然对ajax请求以及回调函数(success,fail)进行了封装，但错误处理不是方便，如果再多几个嵌套，那可真成了callback hell。而promise使得异步操作可以像同步操作一样去书写，并且会提供.catch() 错误处理。</p><h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>promise有三种状态：</p><ol><li>pending（待定）</li><li>fulfilled（成功）</li><li>rejected（失败）</li></ol><p>promise中文含义表示是承诺，承诺xx事件会在未来某个时刻完成，在promise中，状态只能由promise异步请求的结果所改变，并且只有两种：</p><ol><li>pending-&gt;fulfilled</li><li>Pending-&gt;rejected</li></ol><p>新建一个promise：<code>var example = new Promise((resolve,reject)=&gt;{})</code>，Promise构造函数中传入一个参数为resolve，reject的函数，当异步请求成功则执行resolve，失败则执行reject。</p><h2 id="方法以及用例"><a href="#方法以及用例" class="headerlink" title="方法以及用例"></a>方法以及用例</h2><h3 id="then-resolve-reject"><a href="#then-resolve-reject" class="headerlink" title=".then([resolve],[reject])"></a>.then([resolve],[reject])</h3><p>用于处理异步请求后promise的不同状态下的操作，通过链式的方式进行请求后的一些操作，解决了回调函数所带来的回调地狱问题，示例如下：</p><pre><code class="javascript">let promise = readFile(&#39;./example.js&#39;);promise.then(()=&gt;{  console.log(&#39;readFile successful&#39;);}).then(()=&gt;{  ...进而对获取到的内容继续操作})</code></pre><h3 id="catch"><a href="#catch" class="headerlink" title=".catch()"></a>.catch()</h3><p>错误处理，相当于<code>.then(null,(e)={console.log(e)})</code>，只处理状态是错误的情况，用法和<code>.then</code>也一样，链式的写在promise的最后即可。</p><blockquote><p>通常情况下，<code>.then</code>常用于处理状态正确时，而在最后使用<code>.catch</code>对错误进行抓取</p></blockquote><h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><h3 id="all"><a href="#all" class="headerlink" title=".all()"></a>.all()</h3><p>用法：.all([promise1,promise2,promise3,…])</p><p>只接受一个参数，参数为一个可迭代对象，只有当可迭代对象中所有的promise都完成后返回的promise才会完成。</p><blockquote><ol><li><p>返回的promise状态:</p><p>取决于可迭代对象中所有返回promise的状态，如果有一个rejected，那么就是rejected，所有的都是fulfilled，promise返回fulfilled。</p></li><li><p>可迭代对象</p><p>数组、类数组等的数据类型。</p></li></ol></blockquote><h3 id="finally"><a href="#finally" class="headerlink" title=".finally()"></a>.finally()</h3><p>不论promise的状态是什么（pending-&gt;fulfilled或者pending-&gt;rejected），都会执行。</p><h3 id="resovle"><a href="#resovle" class="headerlink" title=".resovle()"></a>.resovle()</h3><p>promise.resolve()可以将一个其他类型的值转换为promise，并且状态为resolve</p><ol><li>当传入参数是数字、字符串、对象等时，返回promise，.then()中的行参res接受了传入的参数</li></ol><pre><code class="javascript">let pro = Promise.resolve(666);console.log(pro)//Promise{666}pro.then((res)=&gt;{  console.log(res);//666})</code></pre><ol start="2"><li><p>当传入的参数是一个promise，则直接返回</p></li><li><p>参数为thenable</p><blockquote><p>thenable对象，具有.then()方法，并且可以接受resolve，reject参数的对象，称为thenable对象</p><pre><code class="javascript">var thenableExample = {    then: function(resolve,reject){        resovle()    }}</code></pre></blockquote></li></ol><h3 id="reject"><a href="#reject" class="headerlink" title=".reject()"></a>.reject()</h3><p>用法和resolve一样，只不过返回的promise的状态是rejected，.resolve可以用.then()来接受参数，同理reject可以使用.catch()来接受</p><pre><code class="javascript">let promiseReject = Promise.reject(666);promiseReject.catch((e)=&gt;{    console.log(e);//666})</code></pre><h3 id="race"><a href="#race" class="headerlink" title=".race()"></a>.race()</h3><p>可以传入多个promise，返回的promise状态取决于最快执行完的promise。</p><blockquote><p>这里有一点，不太明白</p><pre><code>var f1 = new Promise((resolve,reject)=&gt;{    setTimeout(resolve(&#39;f1&#39;),500);});var f2 = new Promise((resolve,reject)=&gt;{    setTimeout(reject(&#39;f2&#39;),100);});var promise = Promise.race([f1,f2]);promise.then(result=&gt;console.log(result)).catch(e=&gt;console.log(e));</code></pre><p>上述代码中，如果按照谁先执行完取谁的状态，那么最后应该是输出f2，但是无论怎么修改setTimeout的delay值，都不会对结果有任何改变，一直输出f1，当改变.race中参数的位置后，输出也变为了f2</p><p>在经过一些尝试后，发现，当setTimeout的写法改为<code>setTimeout(resovle,500,&#39;f1&#39;)</code>时，结果和.race预计输出的结果一样。</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;认识Promise&quot;&gt;&lt;a href=&quot;#认识Promise&quot; class=&quot;headerlink&quot; title=&quot;认识Promise&quot;&gt;&lt;/a&gt;认识Promise&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;Promise将异步操作变为同步操作，避免回调函数的层层嵌</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="promise" scheme="http://yoursite.com/tags/promise/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>api+vutrl服务器搭建</title>
+    <link href="http://yoursite.com/2020/10/07/api%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"/>
+    <id>http://yoursite.com/2020/10/07/api%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</id>
+    <published>2020-10-07T06:50:00.853Z</published>
+    <updated>2020-11-06T02:07:19.062Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="api-vutrl服务器搭建"><a href="#api-vutrl服务器搭建" class="headerlink" title="api+vutrl服务器搭建"></a>api+vutrl服务器搭建</h1><blockquote><p>在最近学习过程中，找到了个好玩的网站，他会提供免费的api进行测试练习（ <a href="https://jsonplaceholder.typicode.com/" target="_blank" rel="noopener">跳转查看</a>），在后来要个可以获取到歌曲的接口，在查找后，发现了<a href="https://binaryify.github.io/NeteaseCloudMusicApi/#/" target="_blank" rel="noopener">网易云音乐api</a>、<a href="https://jsososo.github.io/QQMusicApi/#/" target="_blank" rel="noopener">QQ音乐api</a>，在下面演示中使用到的是qq音乐api</p></blockquote><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>需要有一个服务器，当然任何平台的都可以，这里我使用的是<a href="https://my.vultr.com/" target="_blank" rel="noopener">vutrl</a>。</p><ol><li>购买服务器</li><li>下载一个ftp软件，用来连接远程服务器并互传文件</li><li>下载xshell等可以连接远程服务器的软件，用来通过命令对服务器进行操作</li></ol><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><ol><li><p>使用git下载项目，解压</p><pre><code class="git">git clone git@github.com:jsososo/QQMusicApi.git</code></pre></li><li><p>通过ftp软件连接远程服务器</p></li><li><p>将整个项目放入根文件夹下（/root/）</p></li><li><p>使用xshell进行连接远程服务器，执行以下命令</p><ol><li>首先运行项目需要先安装node<pre><code>sudo yum install epel-releasesudo yum install nodejs</code></pre></li><li>进入到项目文件夹下运行项目<pre><code>ls //通过ls查看当前目录下文件cd QQMusicapi //转到api项目下npm install //下载依赖npm start //运行项目</code></pre></li></ol></li></ol><p>到这里大部分的部署工作已经完成，但是当访问时还是不行，这是因为虽然对应端口开启了服务，但是对外并没有开启服务，需要以下步骤进行开启端口</p><blockquote><p>这里需要注意，修改后端口开关状态后，一定要重启防火墙，一定要重启防火墙，一定要重启防火墙</p></blockquote><pre><code>//查看3300端口是否开启（yes/no）firewall-cmd --query-port=3300/tcp --zone=public //开启3300端口firewall-cmd --zone=public --add-port=3300/tcp --permanent//重启防火墙firewall-cmd --reload</code></pre><p>开启对应的端口，并重启防火墙后，进行开启服务，此时可以正常使用了</p><h2 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h2><p>前面实现了手动运行，但是断开连接后，接口就无法使用了，这时就需要后台一直运行这个进程</p><p>这里使用到screen</p><p>连接远程服务器后，输入screen命令，如果找不到命令的话需要下载</p><pre><code>yum install screen</code></pre><p>安装好后，输入<code>screen -S yourname</code>，这时会打开一个窗口，在这里进入到项目文件夹下，通过<code>npm start</code>运行项目，此时关闭连接即可</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;api-vutrl服务器搭建&quot;&gt;&lt;a href=&quot;#api-vutrl服务器搭建&quot; class=&quot;headerlink&quot; title=&quot;api+vutrl服务器搭建&quot;&gt;&lt;/a&gt;api+vutrl服务器搭建&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;在最近学习过程中，</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="api" scheme="http://yoursite.com/categories/FE/api/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+    <category term="api" scheme="http://yoursite.com/tags/api/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Mac上配置apache，mysql，php的环境</title>
+    <link href="http://yoursite.com/2020/09/27/%E5%9C%A8mac%E4%B8%AD%E9%85%8D%E7%BD%AEapache%E3%80%81mysql%E3%80%81php%20/"/>
+    <id>http://yoursite.com/2020/09/27/%E5%9C%A8mac%E4%B8%AD%E9%85%8D%E7%BD%AEapache%E3%80%81mysql%E3%80%81php%20/</id>
+    <published>2020-09-27T01:09:52.759Z</published>
+    <updated>2020-11-06T02:04:46.783Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="在Mac上配置apache，mysql，php的环境"><a href="#在Mac上配置apache，mysql，php的环境" class="headerlink" title="在Mac上配置apache，mysql，php的环境"></a>在Mac上配置apache，mysql，php的环境</h1><blockquote><p>版本：MacOS Catalina 10.15.6</p></blockquote><p>mac系统一般自带apache和php，只需要简单命令开启即可</p><h2 id="apache"><a href="#apache" class="headerlink" title="apache"></a>apache</h2><pre><code>sudo apachectl start; //开启apahce服务sudo apachectl restart; //重启apache服务sudo  apahcectl stop; //关闭apache服务</code></pre><p>当开启apache服务后，打开浏览器输入：<code>localhost</code>如果出现<code>It Works!</code>表示成功开启服务。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://s1.ax1x.com/2020/09/27/0FL1Gn.jpg" alt="0FL1Gn.jpg" title="">                </div>                <div class="image-caption">0FL1Gn.jpg</div>            </figure><h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><p>开启php，需要修改apache的配置文件，将php模块启用</p><ol><li>在终端中输入<code>sudo vim /etc/apahce2/httpd.conf</code></li><li>查找以<code>LoadModule php...</code>开头的一句，去掉前面的#（#为注释作用）</li><li>修改完后保存退出（esc&gt;<code>:wq</code>&gt;回车）</li></ol><p>这里我们需要修改默认的apahce文件夹目录，原来默认的文件夹在<code>/Library/WebServer/Documents</code>，该目录是隐藏的，操作不方便，自定义一个文件夹，修改默认路径指向</p><ol><li><p>在终端中输入<code>sudo vim /etc/apache2/httpd.conf</code></p></li><li><p>找到以下两行</p><ol><li><pre><code>DocumentRoot &quot;Library/WebServer/Documents&quot;&lt;Directory &quot;Library/WebServer/Documents&quot;&gt;</code></pre></li></ol></li><li><p>将上述两行中双引号中的路径修改为自定文件夹的路径并保存</p></li><li><p>重启apache服务（<code>sudo apacheclt restart</code>）</p></li></ol><p>在自定义文件夹中新建文件index.php，内容如下：</p><pre><code class="php">&lt;?php phpinfo()?&gt;</code></pre><p>打开浏览器，输入localhost/index.php，如果出现的是php的相关信息页面，恭喜成功。</p><h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><p>最后我们开始mysql的安装配置</p><p>在终端中输入<code>brew install mysql</code>,坐等安装完成即可</p><p>成功安装后，在终端中输入<code>mysql -u root</code>，初始状态默认是没有密码的</p><p>进入后可以通过以下命令来进行设置root用户密码</p><pre><code class="mysql">use mysql;alter user &#39;root&#39;@&#39;localhost&#39; identified with mysql_native_password by &#39;你的密码&#39;;flush privileges;</code></pre><p>设置完成后<code>quit</code>，重新登陆测试是否成功</p><h2 id="phpmyadmin"><a href="#phpmyadmin" class="headerlink" title="phpmyadmin"></a>phpmyadmin</h2><p>安装好mysql后，在<a href="https://www.phpmyadmin.net/downloads/" target="_blank" rel="noopener">phpMyAdmin官网</a>中下载，下载好后解压，重命名为phpmyadmin，移动到自定义文件夹下，在浏览器中输入<code>localhost/phpadmin/</code>可以看到以下登陆界面，使用root用户登陆即可</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://s1.ax1x.com/2020/09/27/0FLRde.png" alt="0FLRde.png" title="">                </div>                <div class="image-caption">0FLRde.png</div>            </figure><p>如果登陆不进去有可能是配置文件的问题，打开phpmyadmin文件夹下的config.inc.php文件，如果有相似的文件重命名为config.inc.php，在文件中找到以下几行并进行设置</p><pre><code class="php">$cfg[&#39;Servers&#39;][$i][&#39;host&#39;] = &#39;127.0.0.1&#39;;$cfg[&#39;Servers&#39;][$i][&#39;controluser&#39;] = &#39;root&#39;;（这里的用户名必须为root）$cfg[&#39;Servers&#39;][$i][&#39;controlpass&#39;] = &#39;你自定的密码&#39;;</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;在Mac上配置apache，mysql，php的环境&quot;&gt;&lt;a href=&quot;#在Mac上配置apache，mysql，php的环境&quot; class=&quot;headerlink&quot; title=&quot;在Mac上配置apache，mysql，php的环境&quot;&gt;&lt;/a&gt;在Mac上配置a</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="Mac" scheme="http://yoursite.com/categories/FE/Mac/"/>
+    
+    
+    <category term="Mac" scheme="http://yoursite.com/tags/Mac/"/>
+    
+    <category term="环境配置" scheme="http://yoursite.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>node的修行--第一天</title>
+    <link href="http://yoursite.com/2020/09/18/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E4%B8%80%E5%A4%A9/"/>
+    <id>http://yoursite.com/2020/09/18/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E4%B8%80%E5%A4%A9/</id>
+    <published>2020-09-18T01:54:01.097Z</published>
+    <updated>2020-11-06T02:08:39.127Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="node的修行–第一天"><a href="#node的修行–第一天" class="headerlink" title="node的修行–第一天"></a>node的修行–第一天</h1><blockquote><p>运行环境：macOS Catalina</p><p>遇到的问题：nvm、node、npm等安装后，重新打开terminal执行时报command not found<a href="#deal">解决方法</a></p></blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>补充一些新姿势，可以</p></blockquote><h3 id="nvm"><a href="#nvm" class="headerlink" title="nvm"></a>nvm</h3><p>nvm（nodejs version manger），nodejs的版本管理，可以很轻松的下载、切换不同版本的nodejs，对于不同的项目需求可以进行快速切换运行项目。</p><h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><p>npm（nodejs package manger），nodejs包管理器，方便使用者对于一些包的下载使用。</p><h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><p>Shell是linux系统下的交互式工具，可以帮助用户启动程序，管理文件以及运行的进程。</p><p>在mac中可以打开terminal使用shell命令</p><p>可以在terminal中输入<code>echo $SHELL</code>查看系统默认shell是什么版本（在最新的catalina上，shell版本为zsh），如果需要更换可以参考<a href="https://support.apple.com/zh-cn/HT208050" target="_blank" rel="noopener">官网链接</a>。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在跟着教程安装配置好nvm后，当我重新打开一个terminal准备开始第一个练手项目时发现，输入nvm、node、npm等都直接给出<code>command not found: xxx</code>，这让我有点摸不着头脑，明明安装成功了，为什么无法使用呢，经过查找后才了解到，这里缺失了很重要的一步，那就是配置环境，没有配置环境是无法找到对应的文件的，网上有着不同的说法:</p><p>第一种是在~/.bash_prifile中添加以下两行内容（如果没有此文件，新建一个），保存后执行<code>source ~/.bash_profile</code> </p><pre><code>export NVM_DIR=&quot;/Users/yourname/.nvm&quot;[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; . &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm</code></pre><p>第二种是在~/.bash_profile中添加以下内容：</p><pre><code>export NVM_DIR=&quot;/Users/yourname/.nvm&quot;[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion</code></pre><p>有趣的是我在第一遍尝试时，直接将给出的代码复制粘贴了进去，结果依然是不行，回过头查看给出的几行代码中才发现，有路径是写的默认路径，作者也没有明确给出提示更换路径，这里将第一行中的路径更改为<code>&quot;$HOME/.nvm&quot;</code>即可，再执行文件后，可以使用了，但是当我重新打开一个terminal时，问题又一次出现了，那么现在问题好解决了，只要每次都自动执行<code>source ~/.bash_profile</code>这行代码就可以了，那么方法就是，在~/.zshrc文件中，添加一行<code>source ~/.bash_profile</code>即可解决。</p><h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：<span id="deal"></span></h2><ul><li><p>打开~/.bash_profile添加以下代码：</p><pre><code>export NVM_DIR=&quot;$HOME/.nvm&quot;[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm</code></pre></li><li><p>在terminal中输入<code>source ~/.bash_profile</code></p></li><li><p>打开~/.zshrc添加一行<code>source ~/.bash_profile</code></p></li></ul><blockquote><p>ps:如果没有上述的两个文件，新建即可</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;node的修行–第一天&quot;&gt;&lt;a href=&quot;#node的修行–第一天&quot; class=&quot;headerlink&quot; title=&quot;node的修行–第一天&quot;&gt;&lt;/a&gt;node的修行–第一天&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;运行环境：macOS Catalina&lt;/</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/categories/FE/node/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="node" scheme="http://yoursite.com/tags/node/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>移动端输入法和底部的冲突解决</title>
+    <link href="http://yoursite.com/2020/09/08/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BE%93%E5%85%A5%E6%B3%95%E5%92%8C%E5%BA%95%E9%83%A8%E7%9A%84%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/"/>
+    <id>http://yoursite.com/2020/09/08/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BE%93%E5%85%A5%E6%B3%95%E5%92%8C%E5%BA%95%E9%83%A8%E7%9A%84%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</id>
+    <published>2020-09-07T23:57:32.126Z</published>
+    <updated>2020-11-06T02:04:16.689Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="移动端输入法和底部的冲突解决"><a href="#移动端输入法和底部的冲突解决" class="headerlink" title="移动端输入法和底部的冲突解决"></a>移动端输入法和底部的冲突解决</h1><blockquote><p>在用原生写一个移动端的app时，遇到了一个问题，在设置了一个搜索栏的同时页面底部有导航栏，并且点击搜索栏输入并没有跳转到其他页面，结果在测试输入时发现底部导航栏出现在了输入法的上方</p></blockquote><h2 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h2><p>我猜想是窗口大小改变了，从原来的大视图缩小为小视图+键盘大小，给导航栏设置的<code>position: fixed;bottom: 0;</code>也确实还生效，只不过显示屏大小改变了。</p><h2 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h2><p><code>window.onresize</code>可以监听窗口大小变化，如果窗口大小变化则调用函数，示例如下：</p><pre><code class="javascript">window.onresize = function(){    alert(1);}</code></pre><p>如果只是判断窗口大小改变可能还不足够确定是不是输入法的出现导致的，为了确保是，那么还需要加一个判断，判断当前的视图高度比之前的低即可</p><pre><code class="javascript">var oldHeight = window.screen.height;window.onresize = function(){    var currentHeight = window.screen.height;    if(currentHeight&lt;oldHeight){        alert(1);    }}</code></pre><p>现在可以判断出，此时输入法导致了屏幕视图大小的改变，那么如何修改导航栏呢，这里需要重新看一看<code>position</code>的各个值的含义：</p><p><img src="https://s1.ax1x.com/2020/09/08/wKI8J0.jpg" alt="positon属性值" style="width:80%;"></img></p><p>在上面可以看出，此时其实只要把导航栏移出我们的视线即可，这样方法就变多了，你可以使用<code>absolute</code>定位或者<code>fixed</code>将它移出视图外，也可以把<code>position</code>的属性改为<code>static</code>、<code>relative</code>都可以</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>解决方法：</p><p>检测到视图大小变化了后，</p><ol><li>使用<code>absolute</code>定位或者<code>fixed</code>将它移出视图外</li><li>或者直接将<code>position</code>的属性改为<code>static</code>或者<code>relative</code></li></ol><blockquote><p>ps：这让我想起了之前学习建网站时，logo图标是显示在视图内的，但logo图标的文字是设置在了视图之外，好像是为了搜索此网站时，增加匹配值。</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;移动端输入法和底部的冲突解决&quot;&gt;&lt;a href=&quot;#移动端输入法和底部的冲突解决&quot; class=&quot;headerlink&quot; title=&quot;移动端输入法和底部的冲突解决&quot;&gt;&lt;/a&gt;移动端输入法和底部的冲突解决&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;在用原生写一个移动</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="mobile terminal" scheme="http://yoursite.com/tags/mobile-terminal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正则表达式自测及总结</title>
+    <link href="http://yoursite.com/2020/09/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>http://yoursite.com/2020/09/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
+    <published>2020-09-07T09:53:12.350Z</published>
+    <updated>2020-11-06T02:06:14.397Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><blockquote><p>以下测试使用的网站为：<a href="https://regex101.com/" target="_blank" rel="noopener">regex101</a></p></blockquote><h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p>正则表达式在处理文件，验证表单信息时常常使用，你是否也在使用它的时候不管它的意思，只要百度到能用的就用了，虽然在使用上可能不会遇到什么问题，但是当你理解了其中的意思，在看现成的代码时可以进行学习以及修改，让他可以无限的符合自己的需求，何乐而不为呢。</p><h2 id="正则表达式-1"><a href="#正则表达式-1" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>在js中使用的是RegExp类型来支持正则表达式</p><p>语法：var expression = /pattern/flags</p><p>flags(标志)：一个表达式可以包含一个或多个flags</p><p>pattern(模式)：可以包含字符、限定符、分组、反向引用、向前查找</p><h3 id="flags"><a href="#flags" class="headerlink" title="flags"></a>flags</h3><ol><li>/g：全局模式</li><li>/m：多行模式</li><li>/i：不区分大小写</li></ol><h3 id="pattern："><a href="#pattern：" class="headerlink" title="pattern："></a>pattern：</h3><ol><li>/xxx/: 直接匹配<code>xxx</code></li><li>/[0-9]/: 可以匹配0-9的某个数字（[]方括号内是某个范围匹配例如[0-9]、[a-z]）</li><li>/[0-9]*/: 可以匹配零个或多个数字（星号表示零个或多个）</li><li>/^[0-9]/: 可以匹配非数字（^表示非，否定）</li><li>/[1|2]/: 可以匹配1或者2（｜表示或者）</li><li>/./: 可以匹配单个任意字符</li><li>/a?/: 可以匹配零个或一个a</li><li>/[0-9]+/: 可以匹配一个或者多个数字（+表示一个或多个）</li><li>/3{4}/: 可以匹配四个连续的3</li><li>/3{4,}/: 可以匹配四个或者四个以上的3</li><li>/3{4,6}/: 可以匹配四个到六个连续的3</li><li>/^xxx$/: 开头^ 结尾$</li><li>/aaa(?=bbb)/: 正向肯定预查，匹配aaabbb中的aaa</li><li>/aaa(?!bbb)/: 正向否定预查，匹配除了aaabbb中的aaa其余的aaa</li><li>/(?&lt;=aaa)bbb/: 反向肯定预查，匹配aaabbb中的bbb</li><li>/(?&lt;!aaa)bbb/: 反向否定预查，匹配除了aaabbb中的bbb其余bbb</li></ol><p>一下是一些常见的替换的字符：</p><ol><li>\s：空白    \S：非空白</li><li>\d：阿拉伯数字    \D：非阿拉伯数字</li><li>\w：字母、数字或下划线    \W：非字母、数字或下划线</li><li>\b：字符边界    \B：非字符边界</li></ol><h3 id="小测试"><a href="#小测试" class="headerlink" title="小测试"></a>小测试</h3><p>这里有几个需求，可以进行学习的检测，在输入框内输入设计好的正则表达式，在后面的测试框内输入想要测试的数据，判断是否正确。（以下方法都不唯一，也可以自己在测试网站<a href="https://regex101.com/" target="_blank" rel="noopener">regex101</a>上测试）</p><ol><li>在一群妖怪中救出唐僧(1.直接匹配唐僧2.匹配除唐僧外所有的妖怪，这里不要忘记“妖怪”后面带的字母或者数字)<ol><li>测试数据：妖怪A妖怪A妖怪1妖怪A妖怪A妖怪C妖怪A妖怪A妖怪A妖怪A妖怪A妖怪A妖怪A妖怪Y妖怪A妖怪Y妖怪T妖怪R妖怪E妖怪A妖怪A妖怪B妖怪D唐僧妖怪A妖怪C妖怪A妖怪A妖怪A妖怪A妖怪G妖怪A妖怪A妖怪V妖怪A妖怪A妖怪A妖怪U妖怪A妖怪A妖怪A妖怪A妖怪A妖怪C妖怪A妖怪C妖怪A妖怪A妖怪A妖怪A妖怪A</li></ol></li><li>换源，下面有一段视频链接，需要将其中的CN进行更换为HK，对于需要更换的CN进行匹配，请设计出相对应的正则表达式使之成功换源<ol><li>原链接（目前没有找到可以换源的测试链接，这个是个假链接）：<a href="https://log2.musical.ly/service/2/app_log/?version_code=10.8.1&amp;pass-region=1&amp;pass-route=1&amp;language=zh&amp;app.name=musical_ly&amp;vid=37111EC4-2618-4BD3-BD30-39324B52F6FB&amp;app_version=10.8.1&amp;carrier_region=CN&amp;is_,my_cn=1&amp;channel=App%20Store&amp;mcc_,mnc=46000&amp;device_id=6645470638472295942&amp;tz_,offset=288,00&amp;account_region=KR&amp;sys_region=CN&amp;aid=1233&amp;screen._width=750&amp;uoo=0&amp;openudid=4a5bbbd1eCN9c660f3a793f2cada5f315309571e&amp;os_,api=18&amp;ac=WIFI&amp;os_version=12.1.4&amp;app,_language=zh-Hant&amp;tz_name=Asia/CNShanghai&amp;device_platform=iphone&amp;build_CN,number=108101&amp;device_,type=iPhone9,1&amp;iid=6679029519735613909&amp;idfa=DB32F26F-616F-1264-9674-D6ED5119A072&amp;mas=01a2346c93daaf7f7ff09020c0aabd6fc9b6ed007d5fb843130f" target="_blank" rel="noopener">https://log2.musical.ly/service/2/app_log/?version_code=10.8.1&amp;pass-region=1&amp;pass-route=1&amp;language=zh&amp;app.name=musical_ly&amp;vid=37111EC4-2618-4BD3-BD30-39324B52F6FB&amp;app_version=10.8.1&amp;carrier_region=CN&amp;is_,my_cn=1&amp;channel=App%20Store&amp;mcc_,mnc=46000&amp;device_id=6645470638472295942&amp;tz_,offset=288,00&amp;account_region=KR&amp;sys_region=CN&amp;aid=1233&amp;screen._width=750&amp;uoo=0&amp;openudid=4a5bbbd1eCN9c660f3a793f2cada5f315309571e&amp;os_,api=18&amp;ac=WIFI&amp;os_version=12.1.4&amp;app,_language=zh-Hant&amp;tz_name=Asia/CNShanghai&amp;device_platform=iphone&amp;build_CN,number=108101&amp;device_,type=iPhone9,1&amp;iid=6679029519735613909&amp;idfa=DB32F26F-616F-1264-9674-D6ED5119A072&amp;mas=01a2346c93daaf7f7ff09020c0aabd6fc9b6ed007d5fb843130f</a></li><li>提示：不是所有CN都要替换，只有以_region=开头以&amp;结尾的CN需要更换</li></ol></li><li>设计一个电话号码的正则表达式，用于测试用户是否输入了正确的电话号码格式<ol><li>要求：手机号大家应该都了解，这里不过多介绍</li></ol></li><li>设计一个邮箱账号的正则表达式，用于测试用户是否输入了正确的邮箱账号格式<ol><li>同手机号</li></ol></li></ol><p>好啦，到这里，百分之八十的正则表达式就已经可以看懂了，网上还有很多大佬写的正则表达式可以更好的匹配以及在实际应用中使用，多学多看。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;正则表达式&quot;&gt;&lt;a href=&quot;#正则表达式&quot; class=&quot;headerlink&quot; title=&quot;正则表达式&quot;&gt;&lt;/a&gt;正则表达式&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;以下测试使用的网站为：&lt;a href=&quot;https://regex101.com/&quot; ta</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="正则" scheme="http://yoursite.com/categories/FE/%E6%AD%A3%E5%88%99/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="正则" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ajax前后端数据交互</title>
+    <link href="http://yoursite.com/2020/09/05/ajax%E5%89%8D%E5%90%8E%E7%AB%AF%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/"/>
+    <id>http://yoursite.com/2020/09/05/ajax%E5%89%8D%E5%90%8E%E7%AB%AF%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92/</id>
+    <published>2020-09-04T16:49:35.516Z</published>
+    <updated>2020-11-06T02:07:25.578Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ajax前后端数据交互"><a href="#ajax前后端数据交互" class="headerlink" title="ajax前后端数据交互"></a>ajax前后端数据交互</h1><blockquote><p>通过一次和后端的对接，记录一下学习到的知识点，项目中我使用的是jquery，原因会在后面说到。</p></blockquote><h2 id="使用原生js来设置ajax"><a href="#使用原生js来设置ajax" class="headerlink" title="使用原生js来设置ajax"></a>使用原生js来设置ajax</h2><pre><code class="javascript">var xhr = null;if(window.XMLHttpRequest){//判断当前浏览器是否支持XMLHttpRequest()  xhr = window.XMLHttpRequest();}else{//IE5,IE6  xhr = window.ActiveXObject(&#39;Microsoft.XMLHttp&#39;);}xhr.open(&#39;get&#39;,&#39;xxx&#39;,false);//设置请求信息xhr.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);//设置请求头信息xhr.send();//发送请求（可以添加参数）xhr.onreadystatechange = function(){//检测响应状态码  if(xhr.readystate === 4 &amp;&amp; xhr.status === 200){//响应成功    var result = xhr.responseText; //获取服务器的响应内容  }}</code></pre><blockquote><p>ps：</p><p>一、readystate:状态值（0～4）表示的是ajax请求过程到了哪一步的标志，与是否请求成功无关</p><p>0:初始化</p><p>1:开始发送请求</p><p>2:请求发送成功</p><p>3:开始接受服务端响应</p><p>4:完成响应</p><p>二、Status:Http状态码</p><p>1xx：信息响应类</p><p>2xx：处理成功类</p><p>3xx：重定向响应类</p><p>4xx：客户端错误</p><p>5xx：服务端错误</p><p>Eg：以下列举一些常见的响应状态码：</p><p>200：交易成功 </p><p>403：请求不允许</p><p>404：在当前url未找到资源</p><p>500:服务器内部错误</p></blockquote><h2 id="jquery中的ajax"><a href="#jquery中的ajax" class="headerlink" title="jquery中的ajax"></a>jquery中的ajax</h2><pre><code class="javascript">$(function(){    $.ajax({        url: &quot;xxx&quot;,//后端提供的接口地址    async: true,//是否异步（主要看请求的资源是否会影响后面的操作来进行选择）    dataType: &quot;json&quot;,//前端传给后端数据的格式，一般来说都会是一个json格式的数据    data: user,//前端传给后端的数据    success: function(data){//这里的success是在ajax请求完成后触发的，function参数里的data是后端返回的数据      if(data == &#39;false&#39;){//用于判断这一次的ajax请求是否成功        alert(&#39;失败&#39;);      }else{        alert(&#39;成功&#39;);      }    }  })})</code></pre><p>jquery对于ajax进行了很好的封装，可以从使用上可以看得出，上手很快，参数也是一目了然，接下来可以一起来看看jquery是如何封装ajax的。</p><h3 id="jquery封装下的ajax"><a href="#jquery封装下的ajax" class="headerlink" title="jquery封装下的ajax"></a>jquery封装下的ajax</h3><blockquote><p>待更新</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;ajax前后端数据交互&quot;&gt;&lt;a href=&quot;#ajax前后端数据交互&quot; class=&quot;headerlink&quot; title=&quot;ajax前后端数据交互&quot;&gt;&lt;/a&gt;ajax前后端数据交互&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;通过一次和后端的对接，记录一下学习到的知识</summary>
+      
+    
+    
+    
+    <category term="FE" scheme="http://yoursite.com/categories/FE/"/>
+    
+    <category term="ajax" scheme="http://yoursite.com/categories/FE/ajax/"/>
+    
+    
+    <category term="FE" scheme="http://yoursite.com/tags/FE/"/>
+    
+    <category term="ajax" scheme="http://yoursite.com/tags/ajax/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>更换电脑后博客的相关设置</title>
+    <link href="http://yoursite.com/2020/08/07/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E5%90%8E%E5%8D%9A%E5%AE%A2%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://yoursite.com/2020/08/07/%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E5%90%8E%E5%8D%9A%E5%AE%A2%E8%AE%BE%E7%BD%AE/</id>
+    <published>2020-08-07T07:44:42.488Z</published>
+    <updated>2020-11-06T02:05:31.260Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="博客迁移"><a href="#博客迁移" class="headerlink" title="博客迁移"></a>博客迁移</h1><blockquote><p>有原来的文件，只需要在新电脑上进行部署即可</p></blockquote><h2 id="大概步骤"><a href="#大概步骤" class="headerlink" title="大概步骤"></a>大概步骤</h2><ol><li>生成并添加ssh部署密钥</li></ol><ul><li>Macos<ul><li>打开终端输入<code>ls -al ~/.ssh</code>,查看目录下是否有id_rsa和id_rsa.pub文件，如果有则说明已经存在ssh密钥，直接打开文件进行复制即可</li><li>上面步骤如果没有两个文件，则需要进行生成，在终端中输入<code>ssh-keygen -t rsa -C &quot;自己的Email地址&quot;</code></li><li>生成后，在终端中输入<code>cat ~/.ssh/id_rsa.pub</code>查看ssh密钥</li><li>最后打开github&gt;setting&gt;ssh中进行添加部署密钥即可</li></ul></li></ul><ol start="2"><li>配置hexo、git、node等</li></ol><ul><li>在本地博客文件夹下打开终端，在终端中依次输入<code>npm install hexo</code>、<code>npm install</code>、<code>npm install hexo-deployer-git</code><blockquote><p>npm速度可能较慢，可以进行换源，也可以下载cnpm代替npm进行下载</p></blockquote></li></ul><ol><li>部署完成，之后就可以进行<code>hexo g -d</code>进行部署博文了</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;博客迁移&quot;&gt;&lt;a href=&quot;#博客迁移&quot; class=&quot;headerlink&quot; title=&quot;博客迁移&quot;&gt;&lt;/a&gt;博客迁移&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;有原来的文件，只需要在新电脑上进行部署即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;大</summary>
+      
+    
+    
+    
+    <category term="blog" scheme="http://yoursite.com/categories/blog/"/>
+    
+    
+    <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在hexo博客中嵌入codepen</title>
+    <link href="http://yoursite.com/2020/07/27/hexo+codepen/"/>
+    <id>http://yoursite.com/2020/07/27/hexo+codepen/</id>
+    <published>2020-07-27T01:01:28.000Z</published>
+    <updated>2020-11-06T02:07:57.738Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="在hexo博客中嵌入codepen"><a href="#在hexo博客中嵌入codepen" class="headerlink" title="在hexo博客中嵌入codepen"></a>在hexo博客中嵌入codepen</h1><blockquote><p>在以往记录时，使用的都是纯代码加上效果图，但是不怎么方便好用，这里尝试使用codepen进行代码的演示。</p></blockquote><h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><p>一、在<a href="www.codepen.io">codepen</a>中创建一个账户</p><p>二、创建一个Pen，编写完成后进行保存</p><p>三、在右下角找到<code>Embed</code>，点击后拉到最下面选择<code>iframe</code>，<code>html</code>都可以（一定要保存后才会出现）</p><p>四、直接将代码粘贴到hexo博客中即可显示</p><p>这是使用iframe进行渲染的：</p><iframe height="265" style="width: 100%;" scrolling="no" title="LYNegXE" src="https://codepen.io/cactus1949/embed/LYNegXE?height=265&theme-id=light&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">  See the Pen <a href='https://codepen.io/cactus1949/pen/LYNegXE' target="_blank" rel="noopener">LYNegXE</a> by cactus1949  (<a href='https://codepen.io/cactus1949' target="_blank" rel="noopener">@cactus1949</a>) on <a href='https://codepen.io' target="_blank" rel="noopener">CodePen</a>.</iframe>这是html代码进行渲染的：<p class="codepen" data-height="265" data-theme-id="light" data-default-tab="css,result" data-user="cactus1949" data-slug-hash="LYNegXE" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="LYNegXE">  <span>See the Pen <a href="https://codepen.io/cactus1949/pen/LYNegXE" target="_blank" rel="noopener">  LYNegXE</a> by cactus1949 (<a href="https://codepen.io/cactus1949" target="_blank" rel="noopener">@cactus1949</a>)  on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span></p><script async src="https://static.codepen.io/assets/embed/ei.js"></script><h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><blockquote><p>安装官方的插件，用官方提供的语法进行插入</p></blockquote><p>一、安装官方的插件<br><code>npm install hexo-codepen --save</code><br><code>yarn add hexo-codepen</code></p><blockquote><p>如果运行完<code>yarn add hexo-codepen</code>报错，可能是没有安装yarn包管理的插件，可以运行<code>npm install yarn -g</code>进行安装</p></blockquote><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://s1.ax1x.com/2020/09/07/wuynCd.png" alt="wuynCd.png" title="">                </div>                <div class="image-caption">wuynCd.png</div>            </figure> <p>二、用法待更新</p><blockquote><p>感觉直接使用生成的代码就可以，官方的插件还不会使用，见谅，如果有使用过的可以教教我具体的操作。</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;在hexo博客中嵌入codepen&quot;&gt;&lt;a href=&quot;#在hexo博客中嵌入codepen&quot; class=&quot;headerlink&quot; title=&quot;在hexo博客中嵌入codepen&quot;&gt;&lt;/a&gt;在hexo博客中嵌入codepen&lt;/h1&gt;&lt;blockquote&gt;
+</summary>
+      
+    
+    
+    
+    <category term="blog" scheme="http://yoursite.com/categories/blog/"/>
+    
+    <category term="codepen" scheme="http://yoursite.com/categories/blog/codepen/"/>
+    
+    
+    <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+    <category term="codepen" scheme="http://yoursite.com/tags/codepen/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>markdown常用格式一览</title>
+    <link href="http://yoursite.com/2020/07/27/md%E6%A0%BC%E5%BC%8F/"/>
+    <id>http://yoursite.com/2020/07/27/md%E6%A0%BC%E5%BC%8F/</id>
+    <published>2020-07-27T01:01:28.000Z</published>
+    <updated>2020-11-06T02:08:12.523Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="常用markdown语法一览"><a href="#常用markdown语法一览" class="headerlink" title="常用markdown语法一览"></a>常用markdown语法一览</h1><blockquote><p>记录一些常用的markdown文档书写格式，以便于博客的书写，有使用到的新的语法即会更新此博客。</p></blockquote><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><pre><code># h1## h2...###### h6</code></pre><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><ol><li>无序列表<br>```</li></ol><ul><li>list</li><li>list<br>```</li></ul><ol start="2"><li>有序列表<br>```</li><li>xxx</li><li>xxx<pre><code>## 多选框</code></pre></li></ol><ul><li>[] xxx<pre><code>## 超链接</code></pre><a href="https://www.baidu.com" target="_blank" rel="noopener">xxx</a><br>```<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2></li></ul><ol><li><p>可以使用html进行插入图片，附加内嵌css进行修饰</p><pre><code>&lt;img src=&quot;&quot; style=&quot;&quot; alt=&quot;&quot;&gt;&lt;/ img&gt;</code></pre></li><li><p>md格式</p><pre><code>{% image 图片链接 '文字说明' '' %}</code></pre><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><pre><code>&gt; 这是一段引用</code></pre><h2 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h2><p>```</p><p> 这里是一段代码</p><p> 这里是一段代码</p><p> ```</p><pre><code> `这里是单行代码`</code></pre></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;常用markdown语法一览&quot;&gt;&lt;a href=&quot;#常用markdown语法一览&quot; class=&quot;headerlink&quot; title=&quot;常用markdown语法一览&quot;&gt;&lt;/a&gt;常用markdown语法一览&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;记录一些常用的ma</summary>
+      
+    
+    
+    
+    <category term="blog" scheme="http://yoursite.com/categories/blog/"/>
+    
+    <category term="markdown" scheme="http://yoursite.com/categories/blog/markdown/"/>
+    
+    
+    <category term="markdown" scheme="http://yoursite.com/tags/markdown/"/>
+    
+    <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>博客模版</title>
+    <link href="http://yoursite.com/2020/01/01/%E6%A8%A1%E7%89%88/"/>
+    <id>http://yoursite.com/2020/01/01/%E6%A8%A1%E7%89%88/</id>
+    <published>2019-12-31T16:00:00.000Z</published>
+    <updated>2020-11-06T02:05:51.309Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="博客模版"><a href="#博客模版" class="headerlink" title="博客模版"></a>博客模版</h1><blockquote><p>记录下写博客的一般顺序以及博客基本格式</p></blockquote><h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><pre><code>---title: 首页显示的大标题date: 2020/01/01（可选，不设置会自动生成）index_img: /img/xxx.jpg(可选，首页左侧配图)banner_img: /img/xxx.jpg(文章页顶部大图)categories:- 分类1tags:- 标签1excerpt: 首页显示博客内容简介（添加简介方式1）---</code></pre><blockquote><p>添加简介方式2:在需要在简介中显示的内容后添加<code>&lt;!-- more --&gt;</code>即可</p></blockquote><h2 id="博客部署"><a href="#博客部署" class="headerlink" title="博客部署"></a>博客部署</h2><p>一步到位：<code>hexo g -d</code></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://hexo.fluid-dev.com/docs/guide/#%E9%A6%96%E9%A1%B5" target="_blank" rel="noopener">fluid配置文档</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;博客模版&quot;&gt;&lt;a href=&quot;#博客模版&quot; class=&quot;headerlink&quot; title=&quot;博客模版&quot;&gt;&lt;/a&gt;博客模版&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;记录下写博客的一般顺序以及博客基本格式&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;写博客</summary>
+      
+    
+    
+    
+    <category term="blog" scheme="http://yoursite.com/categories/blog/"/>
+    
+    
+    <category term="blog" scheme="http://yoursite.com/tags/blog/"/>
+    
+  </entry>
+  
+</feed>

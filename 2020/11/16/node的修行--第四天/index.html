@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>node的修行--第四天 | 浅见寡识 | how much can i do?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#0059b3">
+    
+    
+    <meta name="keywords" content="FE,node,koa">
+    <meta name="description" content="node的修行–第四天 koa与Node.js开发实战  koa简介官网介绍，koa是下一代nodejs的web框架，在前面示例中，有使用到express，两者同宗，都是web框架，express主要采用es5的语法，一般使用回调函数处理异步操作，koa1和koa2分别支持es6中的generator函数+yield语句+promise以及es7中的async&#x2F;await+promise处理异步操">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node的修行--第四天">
+<meta property="og:url" content="http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/index.html">
+<meta property="og:site_name" content="浅见寡识">
+<meta property="og:description" content="node的修行–第四天 koa与Node.js开发实战  koa简介官网介绍，koa是下一代nodejs的web框架，在前面示例中，有使用到express，两者同宗，都是web框架，express主要采用es5的语法，一般使用回调函数处理异步操作，koa1和koa2分别支持es6中的generator函数+yield语句+promise以及es7中的async&#x2F;await+promise处理异步操">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-16T00:34:58.573Z">
+<meta property="article:modified_time" content="2020-11-16T07:13:45.113Z">
+<meta property="article:author" content="CACTUS">
+<meta property="article:tag" content="FE">
+<meta property="article:tag" content="node">
+<meta property="article:tag" content="koa">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="浅见寡识" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/46735921.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CACTUS</h5>
+          <a href="mailto:3184302575@qq.com" title="3184302575@qq.com" class="mail">3184302575@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cactus1949" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/links"  >
+                <i class="icon icon-lg icon-link"></i>
+                友链
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">node的修行--第四天</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">node的修行--第四天</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-11-16T00:34:58.573Z" itemprop="datePublished" class="page-time">
+  2020-11-16
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/FE/">FE</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/FE/node/">node</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/FE/node/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A1%86%E6%9E%B6/">服务端框架</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#node的修行–第四天"><span class="post-toc-number">1.</span> <span class="post-toc-text">node的修行–第四天</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#koa简介"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">koa简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#上下文-context"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">上下文(context)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#上下文获取方式："><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">上下文获取方式：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ctx常用api"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">ctx常用api</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-statue"><span class="post-toc-number">1.2.2.1.</span> <span class="post-toc-text">ctx.statue</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-cookies"><span class="post-toc-number">1.2.2.2.</span> <span class="post-toc-text">ctx.cookies</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-throw"><span class="post-toc-number">1.2.2.3.</span> <span class="post-toc-text">ctx.throw</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#request对象api"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">request对象api</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-request-method"><span class="post-toc-number">1.2.3.1.</span> <span class="post-toc-text">ctx.request.method</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-request-url"><span class="post-toc-number">1.2.3.2.</span> <span class="post-toc-text">ctx.request.url</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-request-path"><span class="post-toc-number">1.2.3.3.</span> <span class="post-toc-text">ctx.request.path</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-request-accepts"><span class="post-toc-number">1.2.3.4.</span> <span class="post-toc-text">ctx.request.accepts()</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#response对象api"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">response对象api</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-response-body"><span class="post-toc-number">1.2.4.1.</span> <span class="post-toc-text">ctx.response.body</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-response-type"><span class="post-toc-number">1.2.4.2.</span> <span class="post-toc-text">ctx.response.type</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-response-status"><span class="post-toc-number">1.2.4.3.</span> <span class="post-toc-text">ctx.response.status</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-response-is-type"><span class="post-toc-number">1.2.4.4.</span> <span class="post-toc-text">ctx.response.is(type..)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ctx-response-redirect-url-alt"><span class="post-toc-number">1.2.4.5.</span> <span class="post-toc-text">ctx.response.redirect(url,[alt])</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#get-post请求处理"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">get&#x2F;post请求处理</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-node的修行--第四天"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">node的修行--第四天</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-11-16 08:34:58" datetime="2020-11-16T00:34:58.573Z"  itemprop="datePublished">2020-11-16</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/FE/">FE</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/FE/node/">node</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/FE/node/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A1%86%E6%9E%B6/">服务端框架</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="node的修行–第四天"><a href="#node的修行–第四天" class="headerlink" title="node的修行–第四天"></a>node的修行–第四天</h1><blockquote>
+<p>koa与Node.js开发实战</p>
+</blockquote>
+<h2 id="koa简介"><a href="#koa简介" class="headerlink" title="koa简介"></a><a href="https://koajs.com/" target="_blank" rel="noopener">koa</a>简介</h2><p>官网介绍，koa是下一代nodejs的web框架，在前面示例中，有使用到express，两者同宗，都是web框架，express主要采用es5的语法，一般使用回调函数处理异步操作，koa1和koa2分别支持es6中的generator函数+yield语句+promise以及es7中的async/await+promise处理异步操作</p>
+<blockquote>
+<p>需要补充知识：</p>
+<p>es6 generator函数</p>
+<p>es7 async/await</p>
+<p><a href="https://www.cactus1102.cn/2020/10/15/%E8%AE%A4%E8%AF%86promise/" target="_blank" rel="noopener">promise</a></p>
+</blockquote>
+<h2 id="上下文-context"><a href="#上下文-context" class="headerlink" title="上下文(context)"></a>上下文(context)</h2><p>在koa每个use中，都有着与之对应的一个上下文context，他保存着两个对象：request对象，response对象</p>
+<h3 id="上下文获取方式："><a href="#上下文获取方式：" class="headerlink" title="上下文获取方式："></a>上下文获取方式：</h3><ol>
+<li><p>函数参数ctx</p>
+<pre><code>const koa = require(&#39;koa&#39;);
+const app = new koa();
+app.use((ctx)=&gt;{
+    ctx.response.body = {
+        method: ctx.request.method,
+        url: ctx.request.url,
+    }
+})
+app.listen(3000,()=&gt;{
+    console.log(&#39;is listening port 3000&#39;)
+})</code></pre></li>
+<li><p>this</p>
+<blockquote>
+<p>这里如果使用this获取Context，那么就不能使用箭头函数</p>
+</blockquote>
+<pre><code>const koa = require(&#39;koa&#39;);
+const app = new koa();
+app.use(function*(){
+    this.response.body = {
+        method: this.request.method,
+        url: this.request.url,
+    }
+})
+app.listen(3000,()=&gt;{
+    console.log(&#39;is listening port 3000&#39;)
+})</code></pre></li>
+</ol>
+<blockquote>
+<p>以下示例中全部使用函数参数ctx方式获取context</p>
+</blockquote>
+<h3 id="ctx常用api"><a href="#ctx常用api" class="headerlink" title="ctx常用api"></a>ctx常用api</h3><h4 id="ctx-statue"><a href="#ctx-statue" class="headerlink" title="ctx.statue"></a>ctx.statue</h4><p>这是一个命名空间，在中间件之间传递消息，以及将信息传递到模版，无需直接向ctx添加属性避免命名冲突</p>
+<h4 id="ctx-cookies"><a href="#ctx-cookies" class="headerlink" title="ctx.cookies"></a>ctx.cookies</h4><p>获取cookie</p>
+<p><code>ctx.cookies.get(name,[options])</code></p>
+<p>设置cookie</p>
+<p><code>ctx.cookie.set(name,value,[options])</code></p>
+<h4 id="ctx-throw"><a href="#ctx-throw" class="headerlink" title="ctx.throw"></a>ctx.throw</h4><p>抛出一个错误</p>
+<pre><code>ctx.throw(500)</code></pre><h3 id="request对象api"><a href="#request对象api" class="headerlink" title="request对象api"></a>request对象api</h3><blockquote>
+<p>请求对象</p>
+<p>ctx.request//获取到的是koa的request对象</p>
+<p>ctx.req//获取到的是node的request对象</p>
+<p>koa的request对象是在nodejs的请求对象之上的抽象</p>
+</blockquote>
+<h4 id="ctx-request-method"><a href="#ctx-request-method" class="headerlink" title="ctx.request.method"></a>ctx.request.method</h4><p>请求方式</p>
+<h4 id="ctx-request-url"><a href="#ctx-request-url" class="headerlink" title="ctx.request.url"></a>ctx.request.url</h4><p>请求地址</p>
+<h4 id="ctx-request-path"><a href="#ctx-request-path" class="headerlink" title="ctx.request.path"></a>ctx.request.path</h4><p>请求路由</p>
+<h4 id="ctx-request-accepts"><a href="#ctx-request-accepts" class="headerlink" title="ctx.request.accepts()"></a>ctx.request.accepts()</h4><p>客户端期望收到的数据类型</p>
+<h3 id="response对象api"><a href="#response对象api" class="headerlink" title="response对象api"></a>response对象api</h3><blockquote>
+<p>响应对象</p>
+<p>ctx.response</p>
+</blockquote>
+<h4 id="ctx-response-body"><a href="#ctx-response-body" class="headerlink" title="ctx.response.body"></a>ctx.response.body</h4><p>响应体</p>
+<p>一般会将需要传递的数据添加到响应体中</p>
+<h4 id="ctx-response-type"><a href="#ctx-response-type" class="headerlink" title="ctx.response.type"></a>ctx.response.type</h4><p>显式设置Content-Type</p>
+<h4 id="ctx-response-status"><a href="#ctx-response-status" class="headerlink" title="ctx.response.status"></a>ctx.response.status</h4><p>请求状态</p>
+<h4 id="ctx-response-is-type"><a href="#ctx-response-is-type" class="headerlink" title="ctx.response.is(type..)"></a>ctx.response.is(type..)</h4><p>用于检查响应类型是否是所提供的类型之一</p>
+<h4 id="ctx-response-redirect-url-alt"><a href="#ctx-response-redirect-url-alt" class="headerlink" title="ctx.response.redirect(url,[alt])"></a>ctx.response.redirect(url,[alt])</h4><p>重定向</p>
+<p>将状态码为302的请求重定向到url上</p>
+<blockquote>
+<p>例如登陆后自动重定向到网站的首页</p>
+</blockquote>
+<h2 id="get-post请求处理"><a href="#get-post请求处理" class="headerlink" title="get/post请求处理"></a>get/post请求处理</h2><pre><code>const koa = require(&#39;koa&#39;);
+const app = new koa();
+app.use(ctx=&gt;{
+    ctx.response.body = {
+        url: ctx.request.url,
+        query: ctx.request.query,//get请求参数
+        querystring: ctx.request.querystring
+    }
+})
+app.listen(3000,()=&gt;{
+    console.log(&#39;is listening port 3000&#39;)
+})</code></pre><p>koa中没有封装获取post请求，可以通过nodejs原生提供的Request对象进行获取(ctx.req)</p>
+<pre><code>const koa = require(&#39;koa&#39;);
+const app = new koa();
+app.use(ctx=&gt;{
+    let postdata = &#39;&#39;;
+    ctx.req.on(&#39;data&#39;,(data)=&gt;{
+        postdata += data;
+    })
+    ctx.req.on(&#39;end&#39;,()=&gt;{
+        console.log(postdata);
+    })
+})
+app.listen(3000,()=&gt;{
+    console.log(&#39;is listening port 3000&#39;)
+})</code></pre><p>显而易见，这种方法十分不方便，类似于express中的body-parser，koa也有对应的中间件<a href="https://www.npmjs.com/package/koa-bodyparser" target="_blank" rel="noopener">koa-bodyparser</a></p>
+<p>koa-bodyparser会将post请求的参数解析到ctx.request.body上</p>
+<pre><code>const bodyparser = require(&#39;koa-bodyparser&#39;);
+const koa = require(&#39;koa&#39;);
+const app = new koa();
+app.use(bodyparser());//加载中间件
+app.use(async ctx=&gt;{
+    ctx.response.body = {
+        data: ctx.request.body
+    }
+})
+app.listen(3000,()=&gt;{
+    console.log(&#39;is listening port 3000&#39;)
+})</code></pre><p>使用curl：<code>curl --data &quot;username=cactus&quot; http://127.0.0.1:3000/</code>可以得到响应：<code>{&quot;data&quot;:{&quot;username&quot;:&quot;cactus&quot;}}</code></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-11-16T07:13:45.113Z" itemprop="dateUpdated">2020-11-16 15:13:45</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/" target="_blank" rel="external">http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/46735921.jpeg" alt="CACTUS">
+            CACTUS
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FE/" rel="tag">FE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/" rel="tag">node</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/&title=《node的修行--第四天》 — 浅见寡识&pic=http://yoursite.com/img/46735921.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/&title=《node的修行--第四天》 — 浅见寡识&source=How much can i do?" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《node的修行--第四天》 — 浅见寡识&url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/11/16/%E5%B8%B8%E7%94%A8koa%E4%B8%AD%E9%97%B4%E4%BB%B6/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">常见koa中间件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/11/12/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E4%B8%89%E5%A4%A9/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">node的修行--第三天</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CACTUS &copy; 2015 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/&title=《node的修行--第四天》 — 浅见寡识&pic=http://yoursite.com/img/46735921.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/&title=《node的修行--第四天》 — 浅见寡识&source=How much can i do?" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《node的修行--第四天》 — 浅见寡识&url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/11/16/node%E7%9A%84%E4%BF%AE%E8%A1%8C--%E7%AC%AC%E5%9B%9B%E5%A4%A9/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

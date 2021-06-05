@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>mongoDB--安装运行 | 浅见寡识 | how much can i do?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#0059b3">
+    
+    
+    <meta name="keywords" content="后端,数据库,mongDB">
+    <meta name="description" content="mongDB–安装运行 安装过程有些“离奇”，记录下安装过程  安装前期准备 在官网下载tgz安装包，这里选择好版本以及本机的系统  [                                                                                             BkgxL8.png](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2020&#x2F;10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongoDB--安装运行">
+<meta property="og:url" content="http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/index.html">
+<meta property="og:site_name" content="浅见寡识">
+<meta property="og:description" content="mongDB–安装运行 安装过程有些“离奇”，记录下安装过程  安装前期准备 在官网下载tgz安装包，这里选择好版本以及本机的系统  [                                                                                             BkgxL8.png](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2020&#x2F;10">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgchr.com/i/BkgxL8">
+<meta property="og:image" content="https://imgchr.com/i/Bk2FWn">
+<meta property="og:image" content="https://imgchr.com/i/Bk2rlt">
+<meta property="og:image" content="https://imgchr.com/i/Bk2fYj">
+<meta property="og:image" content="https://imgchr.com/i/Bk2WkQ">
+<meta property="og:image" content="https://imgchr.com/i/BVR76A">
+<meta property="article:published_time" content="2020-10-23T00:37:24.409Z">
+<meta property="article:modified_time" content="2020-11-06T02:08:31.961Z">
+<meta property="article:author" content="CACTUS">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="mongDB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgchr.com/i/BkgxL8">
+    
+        <link rel="alternate" type="application/atom+xml" title="浅见寡识" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/46735921.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CACTUS</h5>
+          <a href="mailto:3184302575@qq.com" title="3184302575@qq.com" class="mail">3184302575@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cactus1949" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/links"  >
+                <i class="icon icon-lg icon-link"></i>
+                友链
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">mongoDB--安装运行</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">mongoDB--安装运行</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-10-23T00:37:24.409Z" itemprop="datePublished" class="page-time">
+  2020-10-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mongDB–安装运行"><span class="post-toc-number">1.</span> <span class="post-toc-text">mongDB–安装运行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前期准备"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">前期准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行"><span class="post-toc-number">3.</span> <span class="post-toc-text">运行</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自启动"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">自启动</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Navicat"><span class="post-toc-number">4.</span> <span class="post-toc-text">Navicat</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="testLayout-mongoDB--安装运行"
+  class="post-article article-type-testLayout fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">mongoDB--安装运行</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-10-23 08:37:24" datetime="2020-10-23T00:37:24.409Z"  itemprop="datePublished">2020-10-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="mongDB–安装运行"><a href="#mongDB–安装运行" class="headerlink" title="mongDB–安装运行"></a>mongDB–安装运行</h1><blockquote>
+<p>安装过程有些“离奇”，记录下安装过程</p>
+</blockquote>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol>
+<li>在<a href="https://www.mongodb.com/try/download/community" target="_blank" rel="noopener">官网</a>下载tgz安装包，这里选择好版本以及本机的系统</li>
+</ol>
+<p>[<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://imgchr.com/i/BkgxL8" alt="BkgxL8.png](https://s1.ax1x.com/2020/10/23/BkgxL8.png)" title="">
+                </div>
+                <div class="image-caption">BkgxL8.png](https://s1.ax1x.com/2020/10/23/BkgxL8.png)</div>
+            </figure></p>
+<ol start="2">
+<li>下载好后解压</li>
+</ol>
+<p>[<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://imgchr.com/i/Bk2FWn" alt="Bk2FWn.png](https://s1.ax1x.com/2020/10/23/Bk2FWn.png)" title="">
+                </div>
+                <div class="image-caption">Bk2FWn.png](https://s1.ax1x.com/2020/10/23/Bk2FWn.png)</div>
+            </figure></p>
+<ol start="3">
+<li>在想要放置mongodb的地方创建一个mongodb的文件夹，将解压后的文件夹移入其中，并在新创建的mongodb文件夹下创建一个名为db的文件夹，如下图：</li>
+</ol>
+<p>[<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://imgchr.com/i/Bk2rlt" alt="Bk2rlt.png](https://s1.ax1x.com/2020/10/23/Bk2rlt.png)" title="">
+                </div>
+                <div class="image-caption">Bk2rlt.png](https://s1.ax1x.com/2020/10/23/Bk2rlt.png)</div>
+            </figure></p>
+<p>前期工作已经准备好了，接下来就是配置环节：</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><p>打开命令行工具，cd到mongodb/mongodb…./bin下，使用pwd获取到bin所在的完整路径</p>
+<p>[<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://imgchr.com/i/Bk2fYj" alt="Bk2fYj.png](https://s1.ax1x.com/2020/10/23/Bk2fYj.png)" title="">
+                </div>
+                <div class="image-caption">Bk2fYj.png](https://s1.ax1x.com/2020/10/23/Bk2fYj.png)</div>
+            </figure></p>
+</li>
+<li><p>将获取到的路径写入<code>~/.bash_profile</code></p>
+<p>[<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://imgchr.com/i/Bk2WkQ" alt="Bk2WkQ.png](https://s1.ax1x.com/2020/10/23/Bk2WkQ.png)" title="">
+                </div>
+                <div class="image-caption">Bk2WkQ.png](https://s1.ax1x.com/2020/10/23/Bk2WkQ.png)</div>
+            </figure></p>
+</li>
+<li><p>写好后，在命令行中输入<code>source ~/.bash_profile</code>，使改动生效</p>
+</li>
+</ol>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>cd到bin目录下，运行<code>./mongod --dbpath db文件夹路径</code>，如果看到有”Listening on”,”attr”:{“address”:”127.0.0.1”}还有端口27017则开启成功，在浏览器中输入<code>127.0.0.1:27017</code>可以看到</p>
+<pre><code>It looks like you are trying to access MongoDB over HTTP on the native driver port.</code></pre><p>重新打开一个终端，刚刚的运行不要关闭，刚刚的运行不要关闭，刚刚的运行不要关闭，cd到bin目录下，运行<code>./mongo</code>，这里就可以开始操作数据库了</p>
+<h2 id="自启动"><a href="#自启动" class="headerlink" title="自启动"></a>自启动</h2><p>上述过程中是手动启动，下面通过launchctl来进行自启动的设置</p>
+<ol>
+<li><p>在终端中输入命令：<code>sudo vim /Library/LaunchDaemons/org.mongo.mongod.plist</code>，创建一个文件，进行代码编写，他会在计算机启动时运行</p>
+<p>在里面粘贴一下内容，需要修改三处路径</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;org.mongo.mongod&lt;/string&gt;
+    &lt;key&gt;RunAtLoad&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/usr/local/bin/mongod&lt;/string&gt;
+        &lt;string&gt;--dbpath&lt;/string&gt;
+        &lt;string&gt;/var/lib/mongodb/&lt;/string&gt;
+        &lt;string&gt;--logpath&lt;/string&gt;
+        &lt;string&gt;/var/log/mongodb.log&lt;/string&gt;
+    &lt;/array&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</code></pre><blockquote>
+<ol>
+<li><code>&lt;string&gt;/usr/local/bin/mongod&lt;/string&gt;</code>这里时mongod的绝对路径</li>
+<li><code>&lt;string&gt;--dbpath&lt;/string&gt;&lt;string&gt;/var/lib/mongodb/&lt;/string&gt;</code>这里是db路径，db是mongodb数据库存储的地方，默认是没有的，需要自己创建</li>
+<li><code>&lt;string&gt;--logpath&lt;/string&gt;&lt;string&gt;/var/log/mongodb.log&lt;/string&gt;</code>同第二个，是log日志文件</li>
+</ol>
+</blockquote>
+</li>
+<li><p>运行一下命令：</p>
+<pre><code>sudo chown root:wheel /Library/LaunchDaemons/org.mongo.mongod.plist
+sudo launchctl load /Library/LaunchDaemons/org.mongo.mongod.plist
+sudo launchctl start org.mongo.mongod</code></pre></li>
+<li><p>　此时重启即可</p>
+</li>
+</ol>
+<h1 id="Navicat"><a href="#Navicat" class="headerlink" title="Navicat"></a>Navicat</h1><p>上述过程中使用的都是terminal，用命令行对数据库进行操作，接下来安装navicat图形化管理数据库。</p>
+<p>[<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://imgchr.com/i/BVR76A" alt="BVR76A.png](https://s1.ax1x.com/2020/10/24/BVR76A.png)" title="">
+                </div>
+                <div class="image-caption">BVR76A.png](https://s1.ax1x.com/2020/10/24/BVR76A.png)</div>
+            </figure></p>
+<p>使用新建连接，直接连接相对应的数据库。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://www.xiaoboy.com/topic/how-to-start-mongodb-automatically-when-starting-your-mac-os-x.html" target="_blank" rel="noopener">在MaxOS X中如何让MongoDB在开机时自动启动</a></li>
+<li><a href="https://juejin.im/post/6844903958826188808" target="_blank" rel="noopener">mac下的mongoDB的安装和启动</a></li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-11-06T02:08:31.961Z" itemprop="dateUpdated">2020-11-06 10:08:31</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" target="_blank" rel="external">http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/46735921.jpeg" alt="CACTUS">
+            CACTUS
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongDB/" rel="tag">mongDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/&title=《mongoDB--安装运行》 — 浅见寡识&pic=http://yoursite.com/img/46735921.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/&title=《mongoDB--安装运行》 — 浅见寡识&source=How much can i do?" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mongoDB--安装运行》 — 浅见寡识&url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/11/01/%E8%AE%B0formidable%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9D%91/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">记formidable模块的坑</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/10/15/%E8%AE%A4%E8%AF%86promise/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">认识promise</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>CACTUS &copy; 2015 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/&title=《mongoDB--安装运行》 — 浅见寡识&pic=http://yoursite.com/img/46735921.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/&title=《mongoDB--安装运行》 — 浅见寡识&source=How much can i do?" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mongoDB--安装运行》 — 浅见寡识&url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/10/23/mongoDB--%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
